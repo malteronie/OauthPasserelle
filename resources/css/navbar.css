@@ -1,0 +1,31 @@
+.dropdown:hover
+.dropdown-menu { display: block;}
+
+header{
+    background-image : url('../img/banniereV2.jpg');
+    background-position : center;
+    width:100%;
+    Color : #074275;
+}
+
+.logoAlavia{
+    width:10%;
+    display:inline;
+    padding-top: 10px;
+    padding-bottom : 10px;
+}
+
+.descriptionNom{
+    display : inline-table;
+}
+
+.nomAPP{
+    display:inline-block;
+    margin-left:20px;
+    font-style : italic;
+    margin-top:20px;
+    color : #074275;
+    font-weight:bold;
+    font-size : 60px;
+    margin-bottom:0px;
+}

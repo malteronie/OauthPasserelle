@@ -1,0 +1,20 @@
+@extends('layouts.single')
+
+@section('title', 'Contact')
+
+@section('content')
+<div class="text-blue-900 w-screen flex justify-center items-center flex-col gap-7">
+    <form method='post' action="{{ route('postcontact') }}" class="p-5 mb-5">    
+        @csrf
+        <label for="objet" class="block font-semibold text-gray-700 mb-2">Objet de la demande</label>            
+        <input type='text' placeholder='Objet' name='objet' id='objet' class="px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" maxlength='32' autofocus>
+        <label for="objet" class="block font-semibold text-gray-700 mb-2">Votre demande</label>            
+        <textarea placeholder='Votre demande' name='message' id='message' cols="35" rows="15"
+                    class="px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100"></textarea>
+    
+        <button type="submit" class="bg-blue-500 text-white hover:bg-blue-700 transition ease-in-out duration-500 rounded-md shadow-md w-full block px-4 py-2 mt-3">Envoyer</button>
+
+    </form>
+</div>
+
+@endsection
