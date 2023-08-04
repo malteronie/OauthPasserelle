@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class RoleSeeder extends Seeder
 {
@@ -13,8 +12,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        if (DB::table('roles')->count() === 0)
-        {
+        if (DB::table('roles')->count() === 0) {
             DB::table('roles')->insert([
                 [
                     'name' => 'admindroits',
@@ -24,10 +22,8 @@ class RoleSeeder extends Seeder
                     'name' => 'adminmetier',
                     'guard_name' => 'web',
                 ],
-                ]);
-        }
-        else
-        {
+            ]);
+        } else {
             echo "\e[31La table roles n'est pas vide.";
         }
     }

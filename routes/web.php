@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\SocialiteAuthController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SocialiteAuthController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Route::controller(AuthenticationController::class)->group(function () {
 Route::impersonate();
 
 /**Users functionnalities */
-Route::controller(UserController::class)->middleware(['auth','useractive'])->group(function () {
+Route::controller(UserController::class)->middleware(['auth', 'useractive'])->group(function () {
     Route::get('/changepwd', 'check')->name('change.pwd');
     Route::post('pwd', 'changePassword')->name('pwd');
     Route::post('reinitpwd/{user}', 'reinit')->name('reinit.pwd')->middleware('permission:update_droits');
@@ -46,9 +46,8 @@ Route::controller(SocialiteAuthController::class)->group(function () {
 });
 
 /** Administration des utilisateurs, roles et permissions */
-Route::prefix('admin/droits')->middleware(['auth','check','useractive'])->name('admin.droits.')->group(function () 
-{
-    Route::controller(UserController::class)->group(function() {
+Route::prefix('admin/droits')->middleware(['auth', 'check', 'useractive'])->name('admin.droits.')->group(function () {
+    Route::controller(UserController::class)->group(function () {
         /** Utilisateurs */
         Route::get('', 'index')->name('users.index')->middleware('permission:read_droits|read_users');
         Route::get('/users', 'index')->name('users.index')->middleware('permission:read_droits|read_users');
@@ -60,8 +59,8 @@ Route::prefix('admin/droits')->middleware(['auth','check','useractive'])->name('
         Route::post('/users/{user}', 'update')->name('users.update')->where('user', '[0-9]+')->middleware('permission:update_droits|update_users');
         Route::post('/users/{user}/roles', 'giveRole')->name('users.roles')->middleware('permission:update_droits|update_users');
         Route::delete('/users/{user}/roles/{role}', 'revokeRole')->name('users.roles.revoke')->middleware('permission:update_droits|update_users');
-    });    
-    Route::controller(RoleController::class)->group(function() {
+    });
+    Route::controller(RoleController::class)->group(function () {
         /** Rôles */
         Route::get('/roles', 'index')->name('roles.index')->middleware('permission:read_droits');
         Route::post('/roles', 'store')->name('roles.store')->middleware('permission:create_droits');
@@ -70,8 +69,8 @@ Route::prefix('admin/droits')->middleware(['auth','check','useractive'])->name('
         route::get('/roles/create', 'create')->name('roles.create')->middleware('permission:create_droits');
         Route::post('/roles/{role}/permissions', 'givePermission')->name('roles.permissions')->middleware('permission:update_droits');
         Route::delete('/roles/{role}/permissions/{permission}', 'revokePermission')->name('roles.permissions.revoke')->middleware('permission:update_droits');
-    }); 
-    Route::controller(PermissionController::class)->group(function() {
+    });
+    Route::controller(PermissionController::class)->group(function () {
         /** Permissions */
         Route::get('/permissions', 'index')->name('permissions.index')->middleware('permission:read_droits');
         Route::post('/permissions', 'store')->name('permissions.store')->middleware('permission:create_droits');
@@ -80,15 +79,14 @@ Route::prefix('admin/droits')->middleware(['auth','check','useractive'])->name('
         route::get('/permissions/create', 'create')->name('permissions.create')->middleware('permission:create_droits');
         Route::post('/permissions/{permission}/roles', 'giveRole')->name('permissions.roles')->middleware('permission:update_droits');
         Route::delete('/permissions/{permission}/roles/{role}', 'revokeRole')->name('permissions.roles.revoke')->middleware('permission:update_droits');
-    }); 
+    });
 });
 
-
-Route::get('/', function() {
+Route::get('/', function () {
     return view('dashboard');
 })->name('dashboard')->middleware(['auth', 'check']);
 
-Route::get('/contact', function() {
+Route::get('/contact', function () {
     return view('contact');
 })->name('contact')->middleware(['auth', 'check']);
 

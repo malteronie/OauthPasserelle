@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
@@ -14,11 +14,11 @@ class PermissionController extends Controller
     {
         //$this->middleware(['auth','check','useractive']);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -30,7 +30,7 @@ class PermissionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -41,16 +41,17 @@ class PermissionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function store(StorePermissionRequest $request)
     {
         $permission = Permission::create([
             'name' => $request->name,
-            'guard_name' => "web",
+            'guard_name' => 'web',
         ]);
-        
+
         session()->flash('msg', 'Nouvelle permission créée');
+
         return $this->index();
     }
 
@@ -58,7 +59,7 @@ class PermissionController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -73,7 +74,7 @@ class PermissionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -85,7 +86,7 @@ class PermissionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * return \Illuminate\View\View
      */
     public function update(UpdatePermissionRequest $request, $id)
     {
@@ -96,28 +97,43 @@ class PermissionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * return \Illuminate\View\View
      */
     public function destroy($id)
     {
         //
     }
 
+    /**
+     * Attribute a permission to a role.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function giveRole(Request $request, Permission $permission)
     {
-        if($permission->hasRole($request->role)){
+        if ($permission->hasRole($request->role)) {
             return back()->with('message', 'Role exists.');
         }
         $permission->assignRole($request->role);
+
         return back()->with('message', 'Role added.');
     }
 
+    /**
+     * Revoke a permission to a role.
+     *
+     * @param  Permission $permission
+     * @param  Role $role
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function revokeRole(Permission $permission, Role $role)
     {
-        if($permission->hasRole($role)){
+        if ($permission->hasRole($role)) {
             $permission->removeRole($role);
+
             return back()->with('message', 'Role revoked.');
         }
+
         return back()->with('message', 'Role not exists.');
     }
 }

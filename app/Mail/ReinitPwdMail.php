@@ -2,13 +2,11 @@
 
 namespace App\Mail;
 
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 
 class ReinitPwdMail extends Mailable
 {
@@ -28,7 +26,7 @@ class ReinitPwdMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            to: $this->mail,
+            to: [$this->mail],
             subject: 'Reinitialisation mot de passe',
         );
     }

@@ -4,11 +4,10 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
 class ContactMail extends Mailable
 {
@@ -28,9 +27,9 @@ class ContactMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: env('APP_NAME') . " - " . $this->data['objet'] ,
+            subject: env('APP_NAME').' - '.$this->data['objet'],
             bcc: [env('MAIL_FROM_ADDRESS'), env('MAIL_ADMIN_APPLI')],
-            cc: Auth::user()->email,
+            cc: [Auth::user()->email],
         );
     }
 

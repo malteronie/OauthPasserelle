@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -14,7 +14,7 @@ class RoleController extends Controller
     {
         //$this->middleware(['auth','check','useractive']);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -47,9 +47,9 @@ class RoleController extends Controller
     {
         $role = Role::create([
             'name' => $request->name,
-            'guard_name' => "web",
+            'guard_name' => 'web',
         ]);
-        
+
         return $this->index()->with('success', 'Le rôle a bien été créé');
     }
 
@@ -92,13 +92,14 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role = $request->name;
 
-        
-        if (is_null($role)){
+        if (is_null($role)) {
             session()->flash('errmsg', 'Rôle non modifé, données incorrectes !');
+
             return $this->show($request->id);
         }
         $role->save();
         session()->flash('msg', 'Rôle renommé');
+
         return $this->show($role->id);
     }
 
@@ -115,19 +116,22 @@ class RoleController extends Controller
 
     public function givePermission(Request $request, Role $role)
     {
-        if($role->hasPermissionTo($request->permission)){
+        if ($role->hasPermissionTo($request->permission)) {
             return back()->with('message', 'Permission exists.');
         }
         $role->givePermissionTo($request->permission);
+
         return back()->with('message', 'Permission added.');
     }
 
     public function revokePermission(Role $role, Permission $permission)
     {
-        if($role->hasPermissionTo($permission)){
+        if ($role->hasPermissionTo($permission)) {
             $role->revokePermissionTo($permission);
+
             return back()->with('message', 'Permission revoked.');
         }
+
         return back()->with('message', 'Permission not exists.');
     }
 }

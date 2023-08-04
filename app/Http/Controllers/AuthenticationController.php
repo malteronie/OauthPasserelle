@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Mail\ReinitPwdMail;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Events\ReinitPwdEvent;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 
 class AuthenticationController extends Controller
 {
@@ -37,14 +35,13 @@ class AuthenticationController extends Controller
     public function sendpwd(Request $request): RedirectResponse
     {
         $user = User::where('email', $request->validate(['email' => 'required']))->first();
- 
-        if ($user)
-        {        
+
+        if ($user) {
             $password = Str::password(12);
             $user->password = Hash::make($password);
             $user->save();
-            
-            event (new ReinitPwdEvent($request->email, $password));
+
+            event(new ReinitPwdEvent($request->email, $password));
 
         }
 

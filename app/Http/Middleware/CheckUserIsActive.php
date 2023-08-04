@@ -16,10 +16,10 @@ class CheckUserIsActive
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->active == 0)
-        {
+        if (Auth::user()->active == 0) {
             return to_route('dashboard');
         }
+
         return $next($request);
     }
 }

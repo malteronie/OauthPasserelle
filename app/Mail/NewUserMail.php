@@ -2,13 +2,11 @@
 
 namespace App\Mail;
 
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 
 class NewUserMail extends Mailable
 {
@@ -37,7 +35,7 @@ class NewUserMail extends Mailable
      * Get the message content definition.
      */
     public function content(): Content
-    {    
+    {
         return new Content(
             view: 'emails.users.new'
         );

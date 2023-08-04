@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PermissionSeeder extends Seeder
 {
@@ -13,8 +12,7 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        if (DB::table('permissions')->count() === 0)
-        {
+        if (DB::table('permissions')->count() === 0) {
             DB::table('permissions')->insert([
                 [
                     'name' => 'create_droits',
@@ -48,10 +46,8 @@ class PermissionSeeder extends Seeder
                     'name' => 'delete_users',
                     'guard_name' => 'web',
                 ],
-                ]);
-        }
-        else
-        {
+            ]);
+        } else {
             echo "\e[31La table permissions n'est pas vide.";
         }
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
 use App\Mail\NewUserMail;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Mail\NewRegistrationMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,41 +27,39 @@ class SocialiteAuthController extends Controller
 
             $existuser = User::where('email', $socialiteUser->email)->first();
 
-            if ($existuser == NULL)
-            {
+            if ($existuser == null) {
                 $user = User::updateOrCreate(
                     ['email' => strtolower($socialiteUser->getEmail())],
-                    ['short_rank' => "TSEF2",
-                    'rank' => 'Technicien blalalalala',
-                    'name' => $socialiteUser->getName(),
-                    'first_name' => $socialiteUser->user['given_name'],
-                    'last_name' => $socialiteUser->user['family_name'],
-                    'login' => 'jackjackjack',             
-                    'affectation_annudef' => 'ALAVIA',
-                    'password' => Hash::make($password),]);
+                    ['short_rank' => 'TSEF2',
+                        'rank' => 'Technicien blalalalala',
+                        'name' => $socialiteUser->getName(),
+                        'first_name' => $socialiteUser->user['given_name'],
+                        'last_name' => $socialiteUser->user['family_name'],
+                        'login' => 'jackjackjack',
+                        'affectation_annudef' => 'ALAVIA',
+                        'password' => Hash::make($password), ]);
 
-                    Mail::send(new NewUserMail(['email' => $user->email,'name' => $user->name], $password));
-                    Mail::send(new NewRegistrationMail(['email' =>$user->email,'short_rank' => $user->short_rank,'name' => $user->name,'id' => $user->id]));
+                Mail::send(new NewUserMail(['email' => $user->email, 'name' => $user->name], $password));
+                Mail::send(new NewRegistrationMail(['email' => $user->email, 'short_rank' => $user->short_rank, 'name' => $user->name, 'id' => $user->id]));
+            } else {
+                $user = User::updateOrCreate(
+                    ['email' => strtolower($socialiteUser->getEmail())],
+                    ['short_rank' => 'TSEF2',
+                        'rank' => 'Technicien blalalalala',
+                        'name' => $socialiteUser->getName(),
+                        'first_name' => $socialiteUser->user['given_name'],
+                        'last_name' => $socialiteUser->user['family_name'],
+                        'login' => $socialiteUser->getName(),
+                        'affectation_annudef' => 'ALAVIA', ]
+                );
             }
-            else
-            {
-            $user = User::updateOrCreate(
-                ['email' => strtolower($socialiteUser->getEmail())],
-                ['short_rank' => "TSEF2",
-                'rank' => 'Technicien blalalalala',
-                'name' => $socialiteUser->getName(),
-                'first_name' => $socialiteUser->user['given_name'],
-                'last_name' => $socialiteUser->user['family_name'],
-                'login' => $socialiteUser->getName(),                
-                'affectation_annudef' => 'ALAVIA',]
-            );
-            }
-                       
+
             Auth::login($user);
 
             return to_route('dashboard');
         } catch (Exception $exception) {
-            dd($exception);
+            //dd($exception);
+
             return to_route('login');
         }
     }

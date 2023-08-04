@@ -2,38 +2,36 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\User;
-use Livewire\Component;
 use App\Mail\ActiveUserMail;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Livewire\Component;
 
 class ActiveUser extends Component
 {
     public $user;
+
     protected $listeners = ['refreshComponent' => '$refresh'];
 
     public function active($user)
-    {    
-        if ($user['active'] == 0)
-        {
+    {
+        if ($user['active'] == 0) {
             User::where('id', $user['id'])->update([
-               'active' => 1,
+                'active' => 1,
             ]);
 
             Mail::send(new ActiveUserMail($user));
 
             $this->emit('refreshComponent');
-        }
-        else
-        {
+        } else {
             User::where('id', $user['id'])->update([
                 'active' => 0,
             ]);
 
             $this->emit('refreshComponent');
-        }        
+        }
     }
-    
+
     public function render()
     {
         return view('livewire.active-user');

@@ -6,12 +6,12 @@ use App\Events\NewUserEvent;
 use App\Events\ReinitPwdEvent;
 use App\Listeners\NewUserListener;
 use App\Listeners\ReinitPwdListener;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
-use SocialiteProviders\Manager\SocialiteWasCalled;
-use SocialiteProviders\Keycloak\KeycloakExtendSocialite;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use SocialiteProviders\Keycloak\KeycloakExtendSocialite;
+use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class EventServiceProvider extends ServiceProvider
 {

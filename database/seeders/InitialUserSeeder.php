@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class InitialUserSeeder extends Seeder
 {
@@ -14,28 +13,20 @@ class InitialUserSeeder extends Seeder
      */
     public function run(): void
     {
-        if (DB::table('users')->count() === 0)
-        {
+        if (DB::table('users')->count() === 0) {
             DB::table('users')->insert([
                 [
                     'login' => 'administrateur',
                     'email' => 'administrateur@application.com',
                     'password' => Hash::make('password'),
-                    'active' => True,
+                    'active' => true,
                 ],
-                ]);
-        }
-        else
-        {
+            ]);
+        } else {
             echo "\e[31La table users n'est pas vide.";
         }
 
-        
-
-        
-
-        if (DB::table('role_has_permissions')->count() === 0)
-        {
+        if (DB::table('role_has_permissions')->count() === 0) {
             DB::table('role_has_permissions')->insert([
                 [
                     'permission_id' => 1,
@@ -69,15 +60,12 @@ class InitialUserSeeder extends Seeder
                     'permission_id' => 8,
                     'role_id' => 2,
                 ],
-                ]);
-        }
-        else
-        {
+            ]);
+        } else {
             echo "\e[31La table role_has_permissions n'est pas vide.";
         }
 
-        if (DB::table('model_has_roles')->count() === 0)
-        {
+        if (DB::table('model_has_roles')->count() === 0) {
             DB::table('model_has_roles')->insert([
                 [
                     'role_id' => 1,
@@ -89,10 +77,8 @@ class InitialUserSeeder extends Seeder
                     'model_type' => 'App\Models\User',
                     'model_id' => 1,
                 ],
-                ]);
-        }
-        else
-        {
+            ]);
+        } else {
             echo "\e[31La table model_has_roles n'est pas vide.";
         }
     }

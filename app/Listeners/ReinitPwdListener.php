@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ReinitPwdEvent;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class ReinitPwdListener
 {
@@ -20,7 +18,7 @@ class ReinitPwdListener
      * Handle the event.
      */
     public function handle(ReinitPwdEvent $event): void
-    {        
+    {
         /**
          * Pour une version en ligne Intradef utilisé ce paragraphe
          */
@@ -29,6 +27,6 @@ class ReinitPwdListener
         /**
          * Pour une version hors ligne utiliser ce paragraphe
          */
-        dd('Réinitialisation du mot de passe par ' . $event->password . ' envoyé à ' . $event->email);
+        dd('Réinitialisation du mot de passe par '.$event->password.' envoyé à '.$event->email);
     }
 }
