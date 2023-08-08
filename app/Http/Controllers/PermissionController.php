@@ -74,7 +74,7 @@ class PermissionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * return \Illuminate\View\View
+     * @return void
      */
     public function edit($id)
     {
@@ -86,7 +86,7 @@ class PermissionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * return \Illuminate\View\View
+     * @return void
      */
     public function update(UpdatePermissionRequest $request, $id)
     {
@@ -97,7 +97,7 @@ class PermissionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * return \Illuminate\View\View
+     * @return void
      */
     public function destroy($id)
     {

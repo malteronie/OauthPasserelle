@@ -11,14 +11,25 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class SocialiteAuthController extends Controller
 {
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return RedirectResponse
+     */
     public function redirect()
     {
         return Socialite::driver('keycloak')->redirect();
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return RedirectResponse
+     */
     public function authenticate()
     {
         $password = Str::password(12);
