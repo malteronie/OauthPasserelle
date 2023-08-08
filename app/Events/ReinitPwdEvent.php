@@ -17,6 +17,8 @@ class ReinitPwdEvent
 
     /**
      * Create a new event instance.
+     *
+     * @param  string  $email, string $password
      */
     public function __construct(string $email, string $password)
     {
