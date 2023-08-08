@@ -11,9 +11,9 @@ class ReinitPwdEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $email;
+    public string $email;
 
-    public $password;
+    public string $password;
 
     /**
      * Create a new event instance.

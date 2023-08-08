@@ -14,6 +14,7 @@ class DestroyUserMail extends Mailable
 
     /**
      * Create a new message instance.
+     * @param array<string|array<string>> $data, string $content
      */
     public function __construct(public array $data, public string $content)
     {

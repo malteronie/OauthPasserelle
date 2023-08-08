@@ -15,6 +15,8 @@ class ContactMail extends Mailable
 
     /**
      * Create a new message instance.
+     * 
+     * @param array<string|array<string>> $data
      */
     public function __construct(public $data)
     {

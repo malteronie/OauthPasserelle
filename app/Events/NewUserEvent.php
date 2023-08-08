@@ -11,9 +11,9 @@ class NewUserEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    public array $user;
 
-    public $password;
+    public string $password;
 
     /**
      * Create a new event instance.

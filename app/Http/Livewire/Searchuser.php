@@ -4,16 +4,18 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Livewire\Component;
+use \Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class Searchuser extends Component
 {
     public String $query;
 
-    public $users = [];
+    public array $users = [];
 
     public Int $selectedIndex = 0;
 
-    public function incrementIndex()
+    public function incrementIndex() : void
     {
         if ($this->selectedIndex === count($this->users) - 1) {
             $this->selectedIndex = 0;
@@ -22,7 +24,7 @@ class Searchuser extends Component
         }
     }
 
-    public function decrementIndex()
+    public function decrementIndex() : void
     {
         if ($this->selectedIndex === 0) {
             $this->selectedIndex = count($this->users) - 1;
@@ -31,14 +33,14 @@ class Searchuser extends Component
         }
     }
 
-    public function showUser()
+    public function showUser() : RedirectResponse
     {
         if ($this->users->isNotEmpty()) {
             return redirect()->route('admin.droits.users.show', [$this->users[$this->selectedIndex]['id']]);
         }
     }
 
-    public function updatedQuery()
+    public function updatedQuery() : void
     {
         $words = '%'.$this->query.'%';
 
@@ -50,12 +52,12 @@ class Searchuser extends Component
 
     }
 
-    public function resetIndex()
+    public function resetIndex() : void
     {
         $this->reset('selectedIndex');
     }
 
-    public function render()
+    public function render() : view
     {
         return view('livewire.searchuser');
     }
