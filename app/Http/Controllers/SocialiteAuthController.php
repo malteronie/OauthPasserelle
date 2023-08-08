@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use App\Models\User;
-use App\Mail\NewUserMail;
-use Illuminate\Support\Str;
 use App\Mail\NewRegistrationMail;
+use App\Mail\NewUserMail;
+use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteAuthController extends Controller

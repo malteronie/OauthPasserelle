@@ -14,8 +14,8 @@ class NewRegistrationMail extends Mailable
 
     /**
      * Create a new message instance.
-     * 
-     * @param array<string|array<string>> $data
+     *
+     * @param  array<string|array<string>>  $data
      */
     public function __construct(public array $data)
     {

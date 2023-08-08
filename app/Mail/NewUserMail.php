@@ -14,8 +14,8 @@ class NewUserMail extends Mailable
 
     /**
      * Create a new message instance.
-     * 
-     * @param array<string|array<string>> $data, string $password
+     *
+     * @param  array<string|array<string>>  $data, string $password
      */
     public function __construct(public array $data, public string $password)
     {

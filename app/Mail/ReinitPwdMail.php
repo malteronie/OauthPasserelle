@@ -14,8 +14,8 @@ class ReinitPwdMail extends Mailable
 
     /**
      * Create a new message instance.
-     * 
-     * @param string $mail, string $password
+     *
+     * @param  string  $mail, string $password
      */
     public function __construct(public string $mail, public string $password)
     {

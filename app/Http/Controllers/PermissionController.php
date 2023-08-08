@@ -122,8 +122,6 @@ class PermissionController extends Controller
     /**
      * Revoke a permission to a role.
      *
-     * @param  Permission $permission
-     * @param  Role $role
      * @return \Illuminate\Http\RedirectResponse
      */
     public function revokeRole(Permission $permission, Role $role)

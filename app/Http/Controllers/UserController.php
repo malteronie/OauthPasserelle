@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewUserEvent;
+use App\Events\ReinitPwdEvent;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Mail\ActiveUserMail;
+use App\Mail\DestroyUserMail;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Permission;
-use Illuminate\Support\Str;
-use App\Events\NewUserEvent;
-use App\Mail\ActiveUserMail;
 use Illuminate\Http\Request;
-use App\Mail\DestroyUserMail;
-use App\Events\ReinitPwdEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -29,7 +29,6 @@ class UserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-
     public function index()
     {
 
@@ -45,11 +44,10 @@ class UserController extends Controller
 
     /**
      * Activate a selected user.
-     * 
-     * @param int $id
+     *
+     * @param  int  $id
      * @return \Illuminate\View\View
      */
-
     public function activate($id)
     {
 
@@ -77,7 +75,6 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-
     public function store(StoreUserRequest $request)
     {
 
@@ -116,10 +113,8 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-
     public function createrole(Request $request)
     {
 
