@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class ActiveUser extends Component
 {
-    /** 
+    /**
      * @var array<array<string>|string>
      */
     public $user;
