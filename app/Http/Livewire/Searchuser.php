@@ -11,6 +11,9 @@ class Searchuser extends Component
 {
     public String $query;
 
+    /**
+     * @var array<\App\Models\User>
+     */
     public array $users = [];
 
     public Int $selectedIndex = 0;

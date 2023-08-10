@@ -42,7 +42,6 @@ class UserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-
     public function create()
     {
         return view('admin.droits.users.create');
@@ -78,7 +77,6 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreUserRequest  $request
      * @return \Illuminate\View\View
      */
     public function store(StoreUserRequest $request)
@@ -111,7 +109,6 @@ class UserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-
     public function permtorole()
     {
         //On charge toutes les permissions existantes
@@ -139,12 +136,10 @@ class UserController extends Controller
 
     /**
      * Update user.
-     * 
-     * @param UpdateUserRequest $request
+     *
      *
      * @return \Illuminate\View\View
      */
-
     public function update(UpdateUserRequest $request)
     {
         $users = User::findOrFail($request->id);
@@ -159,12 +154,10 @@ class UserController extends Controller
 
     /**
      * Show user
-     * 
-     * @param User $user
+     *
      *
      * @return \Illuminate\View\View
      */
-
     public function show(User $user)
     {
 
@@ -175,12 +168,10 @@ class UserController extends Controller
 
     /**
      * Delete user
-     * 
-     * @param User $user, \Illuminate\Http\Request $request
      *
+     * @param  User  $user, \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-
     public function destroy(User $user, Request $request)
     {
         Mail::send(new DestroyUserMail($user->toArray(), $request->content));
@@ -191,12 +182,10 @@ class UserController extends Controller
 
     /**
      * Change password
-     * 
-     * @param \Illuminate\Http\Request $request
+     *
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-
     public function changePassword(Request $request)
     {
 
@@ -227,7 +216,6 @@ class UserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-
     public function check()
     {
         return view('auth.changepwd');
@@ -235,12 +223,10 @@ class UserController extends Controller
 
     /**
      * Check reinit password
-     * 
-     * @param \Illuminate\Http\Request $request
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-
     public function reinit($request)
     {
 
@@ -265,12 +251,10 @@ class UserController extends Controller
 
     /**
      * Check profile
-     * 
-     * @param User $user
+     *
      *
      * @return \Illuminate\View\View
      */
-
     public function profile(User $user)
     {
         if (Auth::user() == $user or Auth::user()->hasrole('admindroits')) {
@@ -283,12 +267,10 @@ class UserController extends Controller
 
     /**
      * give role to user
-     * 
-     * @param \Illuminate\Http\Request $request, User $user
      *
+     * @param  \Illuminate\Http\Request  $request, User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-
     public function giveRole(Request $request, User $user)
     {
         if ($user->hasRole($request->role)) {
@@ -301,12 +283,10 @@ class UserController extends Controller
 
     /**
      * revoke role from user
-     * 
-     * @param User $user, Role $role
      *
+     * @param  User  $user, Role $role
      * @return \Illuminate\Http\RedirectResponse
      */
-
     public function revokeRole(User $user, Role $role)
     {
         if ($user->hasRole(strtolower($role->name))) {
