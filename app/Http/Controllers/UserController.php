@@ -37,6 +37,12 @@ class UserController extends Controller
         return view('admin.droits.users.index', compact('users'));
     }
 
+    /**
+     * Form to create new user.
+     *
+     * @return \Illuminate\View\View
+     */
+
     public function create()
     {
         return view('admin.droits.users.create');
@@ -72,7 +78,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreUserRequest  $request
      * @return \Illuminate\View\View
      */
     public function store(StoreUserRequest $request)
@@ -100,6 +106,12 @@ class UserController extends Controller
         return $this->index()->with('success', 'Le nouvel utilisateur a bien été créé');
     }
 
+    /**
+     * Add a permission to a role
+     *
+     * @return \Illuminate\View\View
+     */
+
     public function permtorole()
     {
         //On charge toutes les permissions existantes
@@ -125,6 +137,14 @@ class UserController extends Controller
         return $this->index()->with('success', 'Nouveau rôle créé');
     }
 
+    /**
+     * Update user.
+     * 
+     * @param UpdateUserRequest $request
+     *
+     * @return \Illuminate\View\View
+     */
+
     public function update(UpdateUserRequest $request)
     {
         $users = User::findOrFail($request->id);
@@ -137,6 +157,14 @@ class UserController extends Controller
         return $this->show($users->id)->with('success', 'Utilisateur mis à jour');
     }
 
+    /**
+     * Show user
+     * 
+     * @param User $user
+     *
+     * @return \Illuminate\View\View
+     */
+
     public function show(User $user)
     {
 
@@ -145,6 +173,14 @@ class UserController extends Controller
         return view('admin.droits.users.show', compact('user', 'roles'));
     }
 
+    /**
+     * Delete user
+     * 
+     * @param User $user, \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
     public function destroy(User $user, Request $request)
     {
         Mail::send(new DestroyUserMail($user->toArray(), $request->content));
@@ -152,6 +188,14 @@ class UserController extends Controller
 
         return to_route('admin.droits.users.index');
     }
+
+    /**
+     * Change password
+     * 
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function changePassword(Request $request)
     {
@@ -178,10 +222,24 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Check correct password
+     *
+     * @return \Illuminate\View\View
+     */
+
     public function check()
     {
         return view('auth.changepwd');
     }
+
+    /**
+     * Check reinit password
+     * 
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\View\View
+     */
 
     public function reinit($request)
     {
@@ -205,6 +263,14 @@ class UserController extends Controller
         return $this->show($users)->with('success', 'Le mot de passe a bien été réinitialisé');
     }
 
+    /**
+     * Check profile
+     * 
+     * @param User $user
+     *
+     * @return \Illuminate\View\View
+     */
+
     public function profile(User $user)
     {
         if (Auth::user() == $user or Auth::user()->hasrole('admindroits')) {
@@ -215,6 +281,14 @@ class UserController extends Controller
         abort(403, 'Vous n\'avez pas le droit de visualiser cette page.');
     }
 
+    /**
+     * give role to user
+     * 
+     * @param \Illuminate\Http\Request $request, User $user
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
     public function giveRole(Request $request, User $user)
     {
         if ($user->hasRole($request->role)) {
@@ -224,6 +298,14 @@ class UserController extends Controller
 
         return back()->with('success', 'Le rôle a bien été ajouté.');
     }
+
+    /**
+     * revoke role from user
+     * 
+     * @param User $user, Role $role
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function revokeRole(User $user, Role $role)
     {

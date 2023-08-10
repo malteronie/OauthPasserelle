@@ -13,6 +13,11 @@ class ActiveUser extends Component
 
     protected $listeners = ['refreshComponent' => '$refresh'];
 
+    /**
+     * @param array<array<string>|string> $user
+     * @return void
+     */
+    
     public function active($user)
     {
         if ($user['active'] == 0) {
@@ -31,6 +36,10 @@ class ActiveUser extends Component
             $this->emit('refreshComponent');
         }
     }
+
+    /**
+     * @return \Illuminate\View\View
+     */
 
     public function render()
     {
