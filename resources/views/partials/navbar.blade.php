@@ -64,7 +64,7 @@
     <div class="">
         @if (Auth::user()->active ==1)
         <!-- Menu d'administration des droits -->
-        @hasanyrole('admindroits|adminmetier')
+        @canany(['read_users','read_droits'])
         <div class="dropdown inline-block">
             <button class="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
                 <span class="hover:text-gray-400 py-2 px-2 block whitespace-nowrap">Administration des droits</span>
@@ -74,13 +74,13 @@
             </button>    
             <ul class="dropdown-menu hidden absolute text-gray-500 pt-1">
             <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="{{ route('admin.droits.users.index') }}">Gestion des utilisateurs</li></a>
-            @hasrole('admindroits')
+            @canany(['read_droits'])
             <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="{{ route('admin.droits.roles.index') }}">Gestion des rôles</li></a>
             <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="{{ route('admin.droits.permissions.index') }}">Gestion des permissions</li></a>
-            @endhasrole    
+            @endcanany 
         </ul>
         </div>
-        @endhasanyrole
+        @endcanany
         <!-- Fin du menu d'administration des droits -->
         @endif
         <!-- Menu de l'utilisateur connecté -->

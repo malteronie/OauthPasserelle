@@ -13,7 +13,7 @@ it('redirect to login page when anonymous', function(){
 });
 
 it('redirect to home when authenticated users', function(){
-    $user = User::factory()->create(['active' => 1]);
+    $user = User::factory()->create();
     $response = actingAs($user)->get('/login');
     $response->assertRedirect('/');
    

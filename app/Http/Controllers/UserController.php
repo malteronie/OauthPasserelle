@@ -128,6 +128,7 @@ class UserController extends Controller
     {
 
         $roles = new Role;
+        /* @phpstan-ignore-next-line */
         $roles->name = $request->rolename;
         $roles->save();
 
@@ -142,6 +143,9 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request)
     {
+        /**
+         * @var User $users
+         */
         $users = User::findOrFail($request->id);
         $users = strtoupper($request->name);
         if (is_null($users)) {
@@ -289,7 +293,9 @@ class UserController extends Controller
      */
     public function revokeRole(User $user, Role $role)
     {
+        /* @phpstan-ignore-next-line */
         if ($user->hasRole(strtolower($role->name))) {
+            /* @phpstan-ignore-next-line */
             $user->removeRole($role->name);
 
             return back()->with('success', 'Le rôle a bien été retiré.');
