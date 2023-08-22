@@ -54,12 +54,14 @@ class User extends Authenticatable
     public function canImpersonate(): bool
     {
         $canImpersonnate = [\App\Enums\RoleEnum::SUPER_ADMIN->value, 'admindroits', 'adminmetier'];
+
         return $this->hasanyrole($canImpersonnate);
     }
 
     public function canBeImpersonated(): bool
     {
         $notImpersonnatable = [\App\Enums\RoleEnum::SUPER_ADMIN->value, 'admindroits'];
+
         return ! $this->hasanyrole($notImpersonnatable);
     }
 }
