@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -13,16 +15,11 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         if (DB::table('roles')->count() === 0) {
-            DB::table('roles')->insert([
-                [
-                    'name' => 'admindroits',
-                    'guard_name' => 'web',
-                ],
-                [
-                    'name' => 'adminmetier',
-                    'guard_name' => 'web',
-                ],
-            ]);
+            foreach (RoleEnum::cases() as $roleEnum) {
+                Role::create([
+                    'name' => $roleEnum->value,
+                ]);
+            }
         } else {
             echo "\e[31La table roles n'est pas vide.";
         }
