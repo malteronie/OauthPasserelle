@@ -15,6 +15,10 @@
 
 - Reprendre les input en shared
 
+- Spatie wildcards??? 
+
+- Livewire : voir qui est en ligne??? OUI/NON?
+
 # Avant déploiement
 
 ## Modification du fichier env
@@ -46,7 +50,7 @@
 
 ## Mode hors ligne
 
-1. Par défaut les leistener sont pour mode intradef donc inverser les versions commentées des listener
+1. Par défaut les listeners sont pour mode intradef donc inverser les versions commentées des listeners
 
 ## Mails
 
