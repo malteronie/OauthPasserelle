@@ -17,6 +17,8 @@
 
 - Spatie wildcards??? 
 
+- Spatie givePermissionTo et Sync?
+
 - Livewire : voir qui est en ligne??? OUI/NON?
 
 # Avant déploiement
