@@ -27,6 +27,7 @@
 
 1. Application
     - APP_NAME  
+    - APP_ONLINE choisir true ou false pour adapter les éventuels notif mails etc...
 
 2. MindefConnect
     - KEYCLOAK_CLIENT_ID
