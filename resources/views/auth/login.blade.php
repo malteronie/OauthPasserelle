@@ -28,18 +28,19 @@
                     Connexion
                 </button>
             </form>
+            @if (env('APP_ONLINE'))
+                <div class="flex-center gap-4 py-3">
+                    <hr class="flex-1"/>
+                    <p class="text-xs text-center">OU</p>
+                    <hr class="flex-1"/>
+                </div>
 
-            <div class="flex-center gap-4 py-3">
-                <hr class="flex-1"/>
-                <p class="text-xs text-center">OU</p>
-                <hr class="flex-1"/>
-            </div>
-
-            <div class="flex justify-center items-center gap-7">
-                <a href="{{ route('oauth.redirect') }}" class="bg-indigo-500 p-2 text-center text-white rounded-xl w-48 hover:shadow-indigo-300 hover:shadow-lg">
-                    OpenIdConnect
-                </a>
-            </div>
+                <div class="flex justify-center items-center gap-7">
+                    <a href="{{ route('oauth.redirect') }}" class="bg-indigo-500 p-2 text-center text-white rounded-xl w-48 hover:shadow-indigo-300 hover:shadow-lg">
+                        OpenIdConnect
+                    </a>
+                </div>                                
+            @endif
         </div>
     </div>
 

@@ -19,14 +19,20 @@ class NewUserListener
      */
     public function handle(NewUserEvent $event): void
     {
-        /**
-         * Pour une version en ligne Intradef utilisé ce paragraphe
-         */
-        //Mail::send(new NewUserMail($request->validated(), $password));
+        if (env('APP_ONLINE')) {
+            /**
+             * Pour une version en ligne Intradef utilisé ce paragraphe
+             */
+            Mail::send(new NewUserMail($request->validated(), $password));
+        } else {
+            /**
+             * Pour une version hors ligne utiliser ce paragraphe
+             */
+            dd('Réinitialisation du mot de passe par '.$event->password.' envoyé à '.$event->user['email']);
+        }
+        
+        
 
-        /**
-         * Pour une version hors ligne utiliser ce paragraphe
-         */
-        dd('Réinitialisation du mot de passe par '.$event->password.' envoyé à '.$event->user['email']);
+        
     }
 }
