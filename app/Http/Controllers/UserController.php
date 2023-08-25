@@ -86,15 +86,19 @@ class UserController extends Controller
         $users->login = $request->login;
         $users->name = Str::random(10);
         $users->email = $request->email;
-        /**
-         * Si version en ligne avec messagerie utiliser ceci
-         */
-        $password = Str::password(12);
-        /**
-         * Si version hors ligne sans messagerie utiliser ceci
-         * Vous pouvez évidemment remplacer PASSWORD par le mot de passe que vous souhaitez mettre par défaut dans votre application
-         */
-        //$password = 'password';
+        
+        if (env('APP_ONLINE')) {
+            /**
+             * Si version en ligne avec messagerie utiliser ceci
+             */
+            $password = Str::password(12);
+        } else {
+            /**
+             * Si version hors ligne sans messagerie utiliser ceci
+             * Vous pouvez évidemment remplacer PASSWORD par le mot de passe que vous souhaitez mettre par défaut dans votre application
+             */
+            $password = 'password';
+        }           
 
         $users->password = Hash::make($password);
         $users->save();
@@ -235,16 +239,20 @@ class UserController extends Controller
     {
 
         $users = User::findOrFail($request);
-        /**
-         * Si version en ligne avec messagerie utiliser ceci
-         */
-        $password = Str::password(12);
-        /**
-         * Si version hors ligne sans messagerie utiliser ceci
-         * Vous pouvez évidemment remplacer PASSWORD par le mot de passe que vous souhaitez mettre par défaut dans votre application
-         */
-        //$password = 'password';
-
+        
+        if (env('APP_ONLINE')) {
+            /**
+             * Si version en ligne avec messagerie utiliser ceci
+             */
+            $password = Str::password(12);
+        } else {
+            /**
+             * Si version hors ligne sans messagerie utiliser ceci
+             * Vous pouvez évidemment remplacer PASSWORD par le mot de passe que vous souhaitez mettre par défaut dans votre application
+             */
+            $password = 'password';
+        }
+        
         $users->password = Hash::make($password);
         $users->save();
 

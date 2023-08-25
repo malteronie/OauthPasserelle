@@ -2,7 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Mail\ReinitPwdMail;
 use App\Events\ReinitPwdEvent;
+use Illuminate\Support\Facades\Mail;
 
 class ReinitPwdListener
 {

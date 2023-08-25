@@ -2,7 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Mail\NewUserMail;
 use App\Events\NewUserEvent;
+use Illuminate\Support\Facades\Mail;
 
 class NewUserListener
 {
@@ -23,7 +25,7 @@ class NewUserListener
             /**
              * Pour une version en ligne Intradef utilisé ce paragraphe
              */
-            Mail::send(new NewUserMail($request->validated(), $password));
+            Mail::send(new NewUserMail($event->user, $event->password));
         } else {
             /**
              * Pour une version hors ligne utiliser ce paragraphe
