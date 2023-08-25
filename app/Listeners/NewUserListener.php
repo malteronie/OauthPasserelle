@@ -32,6 +32,5 @@ class NewUserListener
              */
             dd('Réinitialisation du mot de passe par '.$event->password.' envoyé à '.$event->user['email']);
         }
-
     }
 }
