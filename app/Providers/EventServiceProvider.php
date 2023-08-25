@@ -2,20 +2,20 @@
 
 namespace App\Providers;
 
+use App\Events\ContactMailEvent;
+use App\Events\NewSocialiteUserEvent;
 use App\Events\NewUserEvent;
 use App\Events\ReinitPwdEvent;
-use App\Events\ContactMailEvent;
+use App\Listeners\ContactMailListener;
+use App\Listeners\NewSocialiteUserListener;
 use App\Listeners\NewUserListener;
 use App\Listeners\ReinitPwdListener;
-use App\Events\NewSocialiteUserEvent;
-use Illuminate\Support\Facades\Event;
-use App\Listeners\ContactMailListener;
 use Illuminate\Auth\Events\Registered;
-use App\Listeners\NewSocialiteUserListener;
-use SocialiteProviders\Manager\SocialiteWasCalled;
-use SocialiteProviders\Keycloak\KeycloakExtendSocialite;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use SocialiteProviders\Keycloak\KeycloakExtendSocialite;
+use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class EventServiceProvider extends ServiceProvider
 {

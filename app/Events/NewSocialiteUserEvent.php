@@ -18,7 +18,7 @@ class NewSocialiteUserEvent
 
     /**
      * Create a new event instance.
-     * 
+     *
      * @param  array<string>  $user, string $password
      */
     public function __construct(array $user, string $password)
