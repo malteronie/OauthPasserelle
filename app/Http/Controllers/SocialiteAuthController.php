@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\NewRegistrationMail;
-use App\Mail\NewUserMail;
+use App\Events\NewSocialiteUserEvent;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -50,8 +48,7 @@ class SocialiteAuthController extends Controller
                         'affectation_annudef' => 'ALAVIA',
                         'password' => Hash::make($password), ]);
 
-                Mail::send(new NewUserMail(['email' => $user->email, 'name' => $user->name], $password));
-                Mail::send(new NewRegistrationMail(['email' => $user->email, 'short_rank' => $user->short_rank, 'name' => $user->name, 'id' => $user->id]));
+                event(new NewSocialiteUserEvent($user->toArray(), $password));
             } else {
                 $user = User::updateOrCreate(
                     ['email' => strtolower($socialiteUser->getEmail())],
