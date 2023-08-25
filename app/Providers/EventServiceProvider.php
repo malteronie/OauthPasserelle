@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\ActiveUserEvent;
 use App\Events\ContactMailEvent;
 use App\Events\NewSocialiteUserEvent;
 use App\Events\NewUserEvent;
 use App\Events\ReinitPwdEvent;
+use App\Listeners\ActiveUserListener;
 use App\Listeners\ContactMailListener;
 use App\Listeners\NewSocialiteUserListener;
 use App\Listeners\NewUserListener;
@@ -43,6 +45,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ContactMailEvent::class => [
             ContactMailListener::class,
+        ],
+        ActiveUserEvent::class => [
+            ActiveUserListener::class,
         ],
     ];
 

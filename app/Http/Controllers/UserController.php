@@ -6,7 +6,6 @@ use App\Events\NewUserEvent;
 use App\Events\ReinitPwdEvent;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Mail\ActiveUserMail;
 use App\Mail\DestroyUserMail;
 use App\Models\Permission;
 use App\Models\Role;
@@ -57,12 +56,11 @@ class UserController extends Controller
     {
 
         $user = User::where('id', $id)->first();
-        //dd($user);
 
         if ($user->active == 0) {
             $user->active = true;
             $user->save();
-            Mail::send(new ActiveUserMail($user->toArray()));
+            event(new ActiveUserEvent($user));
 
             return $this->show($user)->with('success', 'L\'utilisateur '.$user->name.' a bien été activé');
         } else {
