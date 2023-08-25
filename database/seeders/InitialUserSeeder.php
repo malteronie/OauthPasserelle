@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Enums\RoleEnum;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -28,8 +28,7 @@ class InitialUserSeeder extends Seeder
             echo "\e[31La table users n'est pas vide.";
         }
 
-        if (DB::table('role_has_permissions')->count() === 0)
-        {
+        if (DB::table('role_has_permissions')->count() === 0) {
             DB::table('role_has_permissions')->insert([
                 [
                     'permission_id' => 1,
@@ -63,10 +62,8 @@ class InitialUserSeeder extends Seeder
                     'permission_id' => 8,
                     'role_id' => 3,
                 ],
-                ]);
-        }
-        else
-        {
+            ]);
+        } else {
             echo "\e[31La table role_has_permissions n'est pas vide.";
         }
 

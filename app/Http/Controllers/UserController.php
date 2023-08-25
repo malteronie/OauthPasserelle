@@ -86,7 +86,7 @@ class UserController extends Controller
         $users->login = $request->login;
         $users->name = Str::random(10);
         $users->email = $request->email;
-        
+
         if (env('APP_ONLINE')) {
             /**
              * Si version en ligne avec messagerie utiliser ceci
@@ -98,7 +98,7 @@ class UserController extends Controller
              * Vous pouvez évidemment remplacer PASSWORD par le mot de passe que vous souhaitez mettre par défaut dans votre application
              */
             $password = 'password';
-        }           
+        }
 
         $users->password = Hash::make($password);
         $users->save();
@@ -239,7 +239,7 @@ class UserController extends Controller
     {
 
         $users = User::findOrFail($request);
-        
+
         if (env('APP_ONLINE')) {
             /**
              * Si version en ligne avec messagerie utiliser ceci
@@ -252,7 +252,7 @@ class UserController extends Controller
              */
             $password = 'password';
         }
-        
+
         $users->password = Hash::make($password);
         $users->save();
 

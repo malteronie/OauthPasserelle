@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
-
 use App\Enums\RoleEnum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionSeeder extends Seeder
 {
@@ -40,7 +38,6 @@ class PermissionSeeder extends Seeder
             //dd($permissions);
             $role = Role::where('name', 'admindroits')->get();
             //$role->givePermissionTo(Permission::all());
-
 
             $permissions = DB::table('permissions')->insert([
                 [

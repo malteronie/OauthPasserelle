@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Mail\NewUserMail;
 use App\Events\NewUserEvent;
+use App\Mail\NewUserMail;
 use Illuminate\Support\Facades\Mail;
 
 class NewUserListener
@@ -32,9 +32,6 @@ class NewUserListener
              */
             dd('Réinitialisation du mot de passe par '.$event->password.' envoyé à '.$event->user['email']);
         }
-        
-        
 
-        
     }
 }

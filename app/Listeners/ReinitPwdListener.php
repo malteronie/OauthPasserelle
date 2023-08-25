@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Mail\ReinitPwdMail;
 use App\Events\ReinitPwdEvent;
+use App\Mail\ReinitPwdMail;
 use Illuminate\Support\Facades\Mail;
 
 class ReinitPwdListener
@@ -32,9 +32,6 @@ class ReinitPwdListener
              */
             dd('Réinitialisation du mot de passe par '.$event->password.' envoyé à '.$event->email);
         }
-        
-        
 
-        
     }
 }
