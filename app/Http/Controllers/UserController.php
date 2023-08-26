@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DeleteUserEvent;
 use App\Events\NewUserEvent;
 use App\Events\ReinitPwdEvent;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Mail\DestroyUserMail;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -180,7 +179,7 @@ class UserController extends Controller
      */
     public function destroy(User $user, Request $request)
     {
-        Mail::send(new DestroyUserMail($user->toArray(), $request->content));
+        event(new DeleteUserEvent($user->toArray(), $request->toArray()));
         User::find($user->id)->delete();
 
         return to_route('admin.droits.users.index');
