@@ -266,7 +266,7 @@ class UserController extends Controller
      */
     public function profile(User $user)
     {
-        if (Auth::user() == $user or Auth::user()->hasrole('admindroits')) {
+        if (Auth::user() == $user or Auth::user()->hasanyrole(App\Enums\RoleEnum::SUPER_ADMIN->value|App\Enums\RoleEnum::ADMINDROITS->value)) {
             //$user = User::find($user);
 
             return view('auth.profile', compact('user'));
@@ -298,9 +298,15 @@ class UserController extends Controller
      */
     public function revokeRole(User $user, Role $role)
     {
-        /* @phpstan-ignore-next-line */
+        if ($role->name == \App\Enums\RoleEnum::SUPER_ADMIN->value and !Auth::user()->hasrole(\App\Enums\RoleEnum::SUPER_ADMIN->value))
+        {
+            return back()->with('warning', 'Vous ne pouvez pas retirer ce rôle');
+        }
+        if ($role->name == \App\Enums\RoleEnum::ADMINDROITS->value and !Auth::user()->hasrole(\App\Enums\RoleEnum::ADMINDROITS->value))
+        {
+            return back()->with('warning', 'Vous ne pouvez pas retirer ce rôle');
+        }
         if ($user->hasRole(strtolower($role->name))) {
-            /* @phpstan-ignore-next-line */
             $user->removeRole($role->name);
 
             return back()->with('success', 'Le rôle a bien été retiré.');
