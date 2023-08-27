@@ -65,8 +65,8 @@
         @if (Auth::user()->active ==1)
         <!-- Menu d'administration des droits -->
         @php
-        $menudroits = [\App\Enums\RoleEnum::SUPER_ADMIN->value, 'admindroits', 'adminmetier'];
-        $menurolespermissions = [\App\Enums\RoleEnum::SUPER_ADMIN->value, 'admindroits'];
+        $menudroits = [\App\Enums\RoleEnum::SUPER_ADMIN->value, \App\Enums\RoleEnum::ADMINDROITS->value, \App\Enums\RoleEnum::ADMINMETIER->value];
+        $menurolespermissions = [\App\Enums\RoleEnum::SUPER_ADMIN->value, \App\Enums\RoleEnum::ADMINDROITS->value];
         @endphp
         
         @hasanyrole($menudroits)

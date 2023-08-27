@@ -51,12 +51,12 @@
                     <h4>Rôle :   </h4>
                     <select id="role" name="role" autocomplete="role-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         @foreach ($roles as $role)
-                        @if ($role->name == 'admindroits')
+                        @if ($role->name == \App\Enums\RoleEnum::ADMINDROITS->value)
                             @if (Auth::user()->can('create_droits'))
                             <option value="{{ $role->name }}">{{ $role->name }}</option>
                             @endif
-                        @elseif ($role->name == App\Enums\RoleEnum::SUPER_ADMIN->value)
-                            @if (Auth::user()->hasrole(App\Enums\RoleEnum::SUPER_ADMIN->value))
+                        @elseif ($role->name == \App\Enums\RoleEnum::SUPER_ADMIN->value)
+                            @if (Auth::user()->hasrole(\App\Enums\RoleEnum::SUPER_ADMIN->value))
                             <option value="{{ $role->name }}">{{ $role->name }}</option>
                             @endif
                         @else
