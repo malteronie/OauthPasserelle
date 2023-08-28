@@ -17,8 +17,8 @@ class PermissionSeeder extends Seeder
     {
         if (DB::table('permissions')->count() === 0) {
             Permission::create([
-                    'name' => 'create_droits',
-                    'guard_name' => 'web',
+                'name' => 'create_droits',
+                'guard_name' => 'web',
             ])->assignRole(
                 Role::firstWhere('name', RoleEnum::ADMINDROITS->value),
             );

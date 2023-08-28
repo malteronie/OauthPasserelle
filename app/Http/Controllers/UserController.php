@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ActiveUserEvent;
 use App\Events\DeleteUserEvent;
 use App\Events\NewUserEvent;
 use App\Events\ReinitPwdEvent;
@@ -266,7 +267,7 @@ class UserController extends Controller
      */
     public function profile(User $user)
     {
-        if (Auth::user() == $user or Auth::user()->hasanyrole(App\Enums\RoleEnum::SUPER_ADMIN->value | App\Enums\RoleEnum::ADMINDROITS->value)) {
+        if (Auth::user() == $user or Auth::user()->hasanyrole(\App\Enums\RoleEnum::SUPER_ADMIN->value | \App\Enums\RoleEnum::ADMINDROITS->value)) {
             //$user = User::find($user);
 
             return view('auth.profile', compact('user'));
