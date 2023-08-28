@@ -16,50 +16,54 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         if (DB::table('permissions')->count() === 0) {
-            DB::table('permissions')->insert([
-                [
+            Permission::create([
                     'name' => 'create_droits',
                     'guard_name' => 'web',
-                ],
-                [
-                    'name' => 'read_droits',
-                    'guard_name' => 'web',
-                ],
-                [
-                    'name' => 'update_droits',
-                    'guard_name' => 'web',
-                ],
-                [
-                    'name' => 'delete_droits',
-                    'guard_name' => 'web',
-                ],
-            ]);
-            //$permissions = Permission::pluck('name')->toArray();
-            //dd($permissions);
-            $role = Role::where('name', 'admindroits')->get();
-            //$role->givePermissionTo(Permission::all());
-
-            $permissions = DB::table('permissions')->insert([
-                [
-                    'name' => 'create_users',
-                    'guard_name' => 'web',
-                ],
-                [
-                    'name' => 'read_users',
-                    'guard_name' => 'web',
-                ],
-                [
-                    'name' => 'update_users',
-                    'guard_name' => 'web',
-                ],
-                [
-                    'name' => 'delete_users',
-                    'guard_name' => 'web',
-                ],
-            ]);
-            $permissions = Permission::where('name', 'like', '%users')->get();
-            //dd($permissions);
-            //Role::where('name', RoleEnum::ADMINMETIER->value)->givePermissionTo($permissions);
+            ])->assignRole(
+                Role::firstWhere('name', RoleEnum::ADMINDROITS->value),
+            );
+            Permission::create([
+                'name' => 'read_droits',
+                'guard_name' => 'web',
+            ])->assignRole(
+                Role::firstWhere('name', RoleEnum::ADMINDROITS->value),
+            );
+            Permission::create([
+                'name' => 'update_droits',
+                'guard_name' => 'web',
+            ])->assignRole(
+                Role::firstWhere('name', RoleEnum::ADMINDROITS->value),
+            );
+            Permission::create([
+                'name' => 'delete_droits',
+                'guard_name' => 'web',
+            ])->assignRole(
+                Role::firstWhere('name', RoleEnum::ADMINDROITS->value),
+            );
+            Permission::create([
+                'name' => 'create_users',
+                'guard_name' => 'web',
+            ])->assignRole(
+                Role::firstWhere('name', RoleEnum::ADMINMETIER->value),
+            );
+            Permission::create([
+                'name' => 'read_users',
+                'guard_name' => 'web',
+            ])->assignRole(
+                Role::firstWhere('name', RoleEnum::ADMINMETIER->value),
+            );
+            Permission::create([
+                'name' => 'update_users',
+                'guard_name' => 'web',
+            ])->assignRole(
+                Role::firstWhere('name', RoleEnum::ADMINMETIER->value),
+            );
+            Permission::create([
+                'name' => 'delete_users',
+                'guard_name' => 'web',
+            ])->assignRole(
+                Role::firstWhere('name', RoleEnum::ADMINMETIER->value),
+            );
         } else {
             echo "\e[31La table permissions n'est pas vide.";
         }
