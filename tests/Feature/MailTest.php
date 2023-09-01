@@ -2,16 +2,20 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use App\Enums\RoleEnum;
 use App\Mail\NewUserMail;
 use App\Mail\ReinitPwdMail;
-use App\Models\User;
+use Illuminate\Support\Str;
+use App\Mail\ActiveUserMail;
+use App\Mail\ContactMail;
+use App\Mail\DestroyUserMail;
+
+use function Pest\Laravel\{get};
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
-
 use function Pest\Laravel\{actingAs};
-use function Pest\Laravel\{get};
 
 beforeEach(
     fn () => $this->seed(\Database\Seeders\DatabaseSeeder::class),
@@ -43,3 +47,33 @@ it('send a mail when reinit password if online\'s APP', function (RoleEnum $role
     ->with([
         RoleEnum::SUPER_ADMIN,
     ]);
+
+it('send a mail when active user if online\'s APP', function(RoleEnum $roleEnum) {
+    Mail::fake();
+    $user = User::factory()->create(['id' => 22, 'active' => 0]);
+    actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->post(route('admin.droits.users.activate',['id' => 22]))
+        ->assertRedirectToRoute('admin.droits.users.show', $user);
+    //Mail::assertSent(ActiveUserMail::class);
+})
+    ->with([
+        RoleEnum::SUPER_ADMIN,
+    ])->only();
+
+it('send a mail when delete user if online\'s APP', function(RoleEnum $roleEnum) {
+    Mail::fake();
+    $user = User::factory()->create(['id' => 50]);
+    actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->post(route('admin.droits.users.destroy', $user));
+    Mail::assertSent(DestroyUserMail::class);
+})
+->with([
+    RoleEnum::SUPER_ADMIN,
+])->only();
+
+it('send a mail when using contact\'s form if online\'s APP', function() {
+    Mail::fake();
+    actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]))
+        ->post('/contact');
+    Mail::assertSent(ContactMail::class);
+});
