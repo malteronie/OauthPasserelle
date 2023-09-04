@@ -60,7 +60,7 @@ class UserController extends Controller
         if ($user->active == 0) {
             $user->active = true;
             $user->save();
-            event(new ActiveUserEvent($user));
+            event(new ActiveUserEvent($user->toArray()));
 
             return $this->show($user)->with('success', 'L\'utilisateur '.$user->name.' a bien été activé');
         } else {
@@ -267,7 +267,7 @@ class UserController extends Controller
      */
     public function profile(User $user)
     {
-        if (Auth::user() == $user or Auth::user()->hasanyrole(\App\Enums\RoleEnum::SUPER_ADMIN->value | \App\Enums\RoleEnum::ADMINDROITS->value)) {
+        if (Auth::user() == $user or Auth::user()->hasrole(\App\Enums\RoleEnum::SUPER_ADMIN->value) or Auth::user()->hasrole(\App\Enums\RoleEnum::ADMINDROITS->value)) {
             //$user = User::find($user);
 
             return view('auth.profile', compact('user'));
@@ -286,8 +286,35 @@ class UserController extends Controller
         if ($user->hasRole($request->role)) {
             return back()->with('warning', 'Le rôle est déjà attribué.');
         }
-        $user->assignRole($request->role);
-
+        if ($request->role == \App\Enums\RoleEnum::ADMINDROITS->value)
+        {
+            if (Auth::user()->can('create_droits'))
+            {
+                $user->assignRole($request->role);
+            }
+            else
+            {
+                return back()->with('error', 'Vous ne pouvez pas ajouter ce rôle.');
+            }
+        }
+        elseif ($request->role == \App\Enums\RoleEnum::SUPER_ADMIN->value)
+        {
+            if (Auth::user()->hasrole(\App\Enums\RoleEnum::SUPER_ADMIN->value))
+            {
+                $user->assignRole($request->role);
+            }
+            else
+            {
+                return back()->with('error', 'Vous ne pouvez pas ajouter ce rôle.');
+            }
+        }
+        else
+        {
+            if (Auth::user()->can('create_droits'))
+            {
+                $user->assignRole($request->role);
+            }
+        }
         return back()->with('success', 'Le rôle a bien été ajouté.');
     }
 
