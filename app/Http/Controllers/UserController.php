@@ -286,35 +286,24 @@ class UserController extends Controller
         if ($user->hasRole($request->role)) {
             return back()->with('warning', 'Le rôle est déjà attribué.');
         }
-        if ($request->role == \App\Enums\RoleEnum::ADMINDROITS->value)
-        {
-            if (Auth::user()->can('create_droits'))
-            {
+        if ($request->role == \App\Enums\RoleEnum::ADMINDROITS->value) {
+            if (Auth::user()->can('create_droits')) {
                 $user->assignRole($request->role);
-            }
-            else
-            {
+            } else {
                 return back()->with('error', 'Vous ne pouvez pas ajouter ce rôle.');
             }
-        }
-        elseif ($request->role == \App\Enums\RoleEnum::SUPER_ADMIN->value)
-        {
-            if (Auth::user()->hasrole(\App\Enums\RoleEnum::SUPER_ADMIN->value))
-            {
+        } elseif ($request->role == \App\Enums\RoleEnum::SUPER_ADMIN->value) {
+            if (Auth::user()->hasrole(\App\Enums\RoleEnum::SUPER_ADMIN->value)) {
                 $user->assignRole($request->role);
-            }
-            else
-            {
+            } else {
                 return back()->with('error', 'Vous ne pouvez pas ajouter ce rôle.');
             }
-        }
-        else
-        {
-            if (Auth::user()->can('create_droits'))
-            {
+        } else {
+            if (Auth::user()->can('create_droits')) {
                 $user->assignRole($request->role);
             }
         }
+
         return back()->with('success', 'Le rôle a bien été ajouté.');
     }
 

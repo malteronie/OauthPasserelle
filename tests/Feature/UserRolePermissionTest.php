@@ -130,7 +130,7 @@ it('can assign a role to a user if admin', function (RoleEnum $roleEnum) {
     actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
         ->post(route('admin.droits.users.roles', [$user, 'role' => RoleEnum::ADMINMETIER->value]))
         ->assertSessionHasNoErrors()
-        ->assertRedirectToRoute('dashboard');        
+        ->assertRedirectToRoute('dashboard');
 })
     ->with([
         RoleEnum::ADMINDROITS,
@@ -169,9 +169,9 @@ it('can\'t assign a permission to a role if not admin', function (RoleEnum $role
         ->post(route('admin.droits.roles.permissions', [$role]))
         ->assertForbidden();
 })
-->with([
-    RoleEnum::ADMINMETIER,
-]);
+    ->with([
+        RoleEnum::ADMINMETIER,
+    ]);
 
 it('can\'t assign a permission to a role if adminmetier', function (RoleEnum $roleEnum) {
     $role = Role::where('name', $roleEnum->value)->first();
@@ -203,9 +203,9 @@ it('can\'t revoke a permission to a role if not admin', function (RoleEnum $role
         ->delete(route('admin.droits.roles.permissions.revoke', [$role, $permission[0]]))
         ->assertForbidden();
 })
-->with([
-    RoleEnum::ADMINMETIER,
-]);
+    ->with([
+        RoleEnum::ADMINMETIER,
+    ]);
 
 it('can\'t revoke a permission to a role if adminmetier', function (RoleEnum $roleEnum) {
     $role = Role::where('name', $roleEnum->value)->first();
@@ -231,7 +231,7 @@ it('can revoke a permission to a role if admin', function (RoleEnum $roleEnum) {
         RoleEnum::SUPER_ADMIN,
     ]);
 
-it('can\'t add role SUPER_ADMIN if not SUPER_ADMIN', function(RoleEnum $roleEnum) {
+it('can\'t add role SUPER_ADMIN if not SUPER_ADMIN', function (RoleEnum $roleEnum) {
     $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
     $response = actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
         ->post(route('admin.droits.users.roles', [$user, 'role' => RoleEnum::SUPER_ADMIN->value]))
@@ -244,7 +244,7 @@ it('can\'t add role SUPER_ADMIN if not SUPER_ADMIN', function(RoleEnum $roleEnum
         RoleEnum::ADMINMETIER,
     ]);
 
-it('can add role SUPER_ADMIN if SUPER_ADMIN', function(RoleEnum $roleEnum) {
+it('can add role SUPER_ADMIN if SUPER_ADMIN', function (RoleEnum $roleEnum) {
     $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
     actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
         ->post(route('admin.droits.users.roles', [$user, 'role' => RoleEnum::SUPER_ADMIN->value]))
@@ -255,7 +255,7 @@ it('can add role SUPER_ADMIN if SUPER_ADMIN', function(RoleEnum $roleEnum) {
         RoleEnum::SUPER_ADMIN,
     ]);
 
-it('can\'t add role ADMINDROITS if not SUPER_ADMIN or ADMINDROITS', function(RoleEnum $roleEnum) {
+it('can\'t add role ADMINDROITS if not SUPER_ADMIN or ADMINDROITS', function (RoleEnum $roleEnum) {
     $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
     $response = actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
         ->post(route('admin.droits.users.roles', [$user, 'role' => RoleEnum::ADMINDROITS->value]))
@@ -267,7 +267,7 @@ it('can\'t add role ADMINDROITS if not SUPER_ADMIN or ADMINDROITS', function(Rol
         RoleEnum::ADMINMETIER,
     ]);
 
-it('can add role ADMINDROITS if SUPER_ADMIN or ADMINDROITS', function(RoleEnum $roleEnum) {
+it('can add role ADMINDROITS if SUPER_ADMIN or ADMINDROITS', function (RoleEnum $roleEnum) {
     $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
     actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
         ->post(route('admin.droits.users.roles', [$user, 'role' => RoleEnum::ADMINDROITS->value]))
@@ -279,7 +279,7 @@ it('can add role ADMINDROITS if SUPER_ADMIN or ADMINDROITS', function(RoleEnum $
         RoleEnum::SUPER_ADMIN,
     ]);
 
-it('can\'t revoke role SUPER_ADMIN if not SUPER_ADMIN', function(RoleEnum $roleEnum) {
+it('can\'t revoke role SUPER_ADMIN if not SUPER_ADMIN', function (RoleEnum $roleEnum) {
     $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
     $role = Role::where('name', RoleEnum::SUPER_ADMIN->value)->pluck('id');
     $response = actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
@@ -293,7 +293,7 @@ it('can\'t revoke role SUPER_ADMIN if not SUPER_ADMIN', function(RoleEnum $roleE
         RoleEnum::ADMINMETIER,
     ]);
 
-it('can revoke role SUPER_ADMIN if SUPER_ADMIN', function(RoleEnum $roleEnum) {
+it('can revoke role SUPER_ADMIN if SUPER_ADMIN', function (RoleEnum $roleEnum) {
     $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
     $role = Role::where('name', RoleEnum::SUPER_ADMIN->value)->pluck('id');
     actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
@@ -305,7 +305,7 @@ it('can revoke role SUPER_ADMIN if SUPER_ADMIN', function(RoleEnum $roleEnum) {
         RoleEnum::SUPER_ADMIN,
     ]);
 
-it('can\'t revoke role ADMINDROITS if not SUPER_ADMIN or ADMINDROITS', function(RoleEnum $roleEnum) {
+it('can\'t revoke role ADMINDROITS if not SUPER_ADMIN or ADMINDROITS', function (RoleEnum $roleEnum) {
     $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
     $role = Role::where('name', RoleEnum::ADMINDROITS->value)->pluck('id');
     $response = actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
@@ -318,7 +318,7 @@ it('can\'t revoke role ADMINDROITS if not SUPER_ADMIN or ADMINDROITS', function(
         RoleEnum::ADMINMETIER,
     ]);
 
-it('can revoke role ADMINDROITS if SUPER_ADMIN or ADMINDROITS', function(RoleEnum $roleEnum) {
+it('can revoke role ADMINDROITS if SUPER_ADMIN or ADMINDROITS', function (RoleEnum $roleEnum) {
     $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
     $role = Role::where('name', RoleEnum::ADMINDROITS->value)->pluck('id');
     actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
