@@ -232,19 +232,101 @@ it('can revoke a permission to a role if admin', function (RoleEnum $roleEnum) {
     ]);
 
 it('can\'t add role SUPER_ADMIN if not SUPER_ADMIN', function(RoleEnum $roleEnum) {
-
+    $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
+    $response = actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->post(route('admin.droits.users.roles', [$user, 'role' => RoleEnum::SUPER_ADMIN->value]))
+        ->assertRedirectToRoute('dashboard');
+    $this->followRedirects($response)
+        ->assertSee('Vous ne pouvez pas ajouter ce rôle.');
 })
     ->with([
         RoleEnum::ADMINDROITS,
         RoleEnum::ADMINMETIER,
+    ]);
+
+it('can add role SUPER_ADMIN if SUPER_ADMIN', function(RoleEnum $roleEnum) {
+    $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
+    actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->post(route('admin.droits.users.roles', [$user, 'role' => RoleEnum::SUPER_ADMIN->value]))
+        ->assertSessionHasNoErrors()
+        ->assertRedirectToRoute('dashboard');
+})
+    ->with([
         RoleEnum::SUPER_ADMIN,
     ]);
 
 it('can\'t add role ADMINDROITS if not SUPER_ADMIN or ADMINDROITS', function(RoleEnum $roleEnum) {
+    $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
+    $response = actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->post(route('admin.droits.users.roles', [$user, 'role' => RoleEnum::ADMINDROITS->value]))
+        ->assertRedirectToRoute('dashboard');
+    $this->followRedirects($response)
+        ->assertSee('Vous ne pouvez pas ajouter ce rôle.');
+})
+    ->with([
+        RoleEnum::ADMINMETIER,
+    ]);
 
+it('can add role ADMINDROITS if SUPER_ADMIN or ADMINDROITS', function(RoleEnum $roleEnum) {
+    $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
+    actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->post(route('admin.droits.users.roles', [$user, 'role' => RoleEnum::ADMINDROITS->value]))
+        ->assertSessionHasNoErrors()
+        ->assertRedirectToRoute('dashboard');
+})
+    ->with([
+        RoleEnum::ADMINDROITS,
+        RoleEnum::SUPER_ADMIN,
+    ]);
+
+it('can\'t revoke role SUPER_ADMIN if not SUPER_ADMIN', function(RoleEnum $roleEnum) {
+    $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
+    $role = Role::where('name', RoleEnum::SUPER_ADMIN->value)->pluck('id');
+    $response = actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->delete(route('admin.droits.users.roles.revoke', [$user, $role[0]]))
+        ->assertRedirectToRoute('dashboard');
+    $this->followRedirects($response)
+        ->assertSee('Vous ne pouvez pas retirer ce rôle');
 })
     ->with([
         RoleEnum::ADMINDROITS,
         RoleEnum::ADMINMETIER,
+    ]);
+
+it('can revoke role SUPER_ADMIN if SUPER_ADMIN', function(RoleEnum $roleEnum) {
+    $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
+    $role = Role::where('name', RoleEnum::SUPER_ADMIN->value)->pluck('id');
+    actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->delete(route('admin.droits.users.roles.revoke', [$user, $role[0]]))
+        ->assertSessionHasNoErrors()
+        ->assertRedirectToRoute('dashboard');
+})
+    ->with([
+        RoleEnum::SUPER_ADMIN,
+    ]);
+
+it('can\'t revoke role ADMINDROITS if not SUPER_ADMIN or ADMINDROITS', function(RoleEnum $roleEnum) {
+    $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
+    $role = Role::where('name', RoleEnum::ADMINDROITS->value)->pluck('id');
+    $response = actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->delete(route('admin.droits.users.roles.revoke', [$user, $role[0]]))
+        ->assertRedirectToRoute('dashboard');
+    $this->followRedirects($response)
+        ->assertSee('Vous ne pouvez pas retirer ce rôle');
+})
+    ->with([
+        RoleEnum::ADMINMETIER,
+    ]);
+
+it('can revoke role ADMINDROITS if SUPER_ADMIN or ADMINDROITS', function(RoleEnum $roleEnum) {
+    $user = User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]);
+    $role = Role::where('name', RoleEnum::ADMINDROITS->value)->pluck('id');
+    actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->delete(route('admin.droits.users.roles.revoke', [$user, $role[0]]))
+        ->assertSessionHasNoErrors()
+        ->assertRedirectToRoute('dashboard');
+})
+    ->with([
+        RoleEnum::ADMINDROITS,
         RoleEnum::SUPER_ADMIN,
     ]);

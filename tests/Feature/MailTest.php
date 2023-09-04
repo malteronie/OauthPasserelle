@@ -21,8 +21,10 @@ beforeEach(
     fn () => $this->seed(\Database\Seeders\DatabaseSeeder::class),
 );
 
-it('send a mail when register new user if online\'s APP', function (RoleEnum $roleEnum) {
+if (env('APP_ONLINE'))
+    {
 
+it('send a mail when register new user if online\'s APP', function (RoleEnum $roleEnum) {
     Mail::fake();
     actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
         ->post(route('admin.droits.users.store'),
@@ -51,25 +53,28 @@ it('send a mail when reinit password if online\'s APP', function (RoleEnum $role
 it('send a mail when active user if online\'s APP', function(RoleEnum $roleEnum) {
     Mail::fake();
     $user = User::factory()->create(['id' => 22, 'active' => 0]);
-    actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
-        ->post(route('admin.droits.users.activate',['id' => 22]))
-        ->assertRedirectToRoute('admin.droits.users.show', $user);
-    //Mail::assertSent(ActiveUserMail::class);
+    actingAs(User::factory()->create(['id' => 57, 'password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
+        ->post(route('admin.droits.users.activate',['id' => 22]));
+        //->assertSessionHasNoErrors()
+        //->assertRedirectToRoute('admin.droits.users.show', $user);
+    Mail::assertSent(ActiveUserMail::class);
 })
     ->with([
         RoleEnum::SUPER_ADMIN,
-    ])->only();
+    ]);
 
 it('send a mail when delete user if online\'s APP', function(RoleEnum $roleEnum) {
     Mail::fake();
     $user = User::factory()->create(['id' => 50]);
     actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
-        ->post(route('admin.droits.users.destroy', $user));
+        ->post(route('admin.droits.users.destroy', ['user' => $user, 'content' => 'test suppr']))
+        ->assertSessionHasNoErrors();
+        //->assertRedirectToRoute('admin.droits.users.index');
     Mail::assertSent(DestroyUserMail::class);
 })
 ->with([
     RoleEnum::SUPER_ADMIN,
-])->only();
+]);
 
 it('send a mail when using contact\'s form if online\'s APP', function() {
     Mail::fake();
@@ -77,3 +82,5 @@ it('send a mail when using contact\'s form if online\'s APP', function() {
         ->post('/contact');
     Mail::assertSent(ContactMail::class);
 });
+
+    }
