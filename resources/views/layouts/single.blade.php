@@ -8,11 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"  rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" rel="stylesheet" />
      
-    @vite(['resources/css/app.css','resources/css/navbar.css'])
+    @vite(['resources/css/app.css','resources/css/navbar.css', 'resources/js/app.js'])
     <style>
           [x-cloak] {display: none;}
     </style>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
     @livewireStyles
 </head>
 <body>
