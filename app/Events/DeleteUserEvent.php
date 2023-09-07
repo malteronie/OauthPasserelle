@@ -13,14 +13,15 @@ class DeleteUserEvent
 
     /** @var array<string> */
     public array $user;
+
     /** @var array<string> */
     public array $content;
 
     /**
      * Create a new event instance.
-     * 
-     * @param array<string> $user
-     * @param array<string> $content
+     *
+     * @param  array<string>  $user
+     * @param  array<string>  $content
      */
     public function __construct(array $user, array $content)
     {
