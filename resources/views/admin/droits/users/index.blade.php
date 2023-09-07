@@ -10,8 +10,6 @@
 </div>
 <div class="shadow shadow-lg w-11/12 rounded-2xl py-7 px-4 space-y-2">
     <h1 class="text-3xl text-blue-600 text-center mb-5">Liste des utilisateurs</h1>
-
-    @livewire('searchuser')
     <div>
         <table class="w-full max-w-3xl mx-auto rounded-lg border-collapse border-2 shadow-md p-5 mb-5">
             <thead class="border-gray-300 border-2 text-xl">
