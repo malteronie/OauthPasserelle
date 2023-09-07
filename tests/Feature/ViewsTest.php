@@ -23,6 +23,17 @@ it('redirect to home when authenticated users', function () {
         ->assertRedirect('/');
 });
 
+it('has a waiting message when not activated', function () {
+    actingAs($user = User::factory()->create(['password' => Hash::make(Str::password(12))]))->get('/')
+        ->assertOk()
+        ->assertSeeText($user->name)
+        ->assertSeeText('pas encore activé');
+});
+
+it('redirects to dashboard if Socialite\'s auth', function () {
+
+});
+
 it('can\'t see users admin page if not admin', function () {
     actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]))
         ->get('/admin/droits/users')

@@ -6,6 +6,7 @@ use App\Enums\RoleEnum;
 use App\Mail\ActiveUserMail;
 use App\Mail\ContactMail;
 use App\Mail\DestroyUserMail;
+use App\Mail\NewRegistrationMail;
 use App\Mail\NewUserMail;
 use App\Mail\ReinitPwdMail;
 use App\Models\User;
@@ -38,6 +39,15 @@ if (env('APP_ONLINE')) {
             RoleEnum::SUPER_ADMIN,
         ]);
 
+    it('send a mail to admin and user when register new Socialite User if online\'s APP', function () {
+        Mail::fake();
+        get(route('oauth.redirect'))
+            ->assertOk();
+
+        Mail::assertSent(NewUserMail::class);
+        Mail::assertSent(NewRegistrationMail::class);
+    });
+
     it('send a mail when reinit password if online\'s APP', function (RoleEnum $roleEnum) {
         Mail::fake();
         actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
@@ -52,9 +62,9 @@ if (env('APP_ONLINE')) {
         Mail::fake();
         $user = User::factory()->create(['id' => 22, 'active' => 0]);
         actingAs(User::factory()->create(['id' => 57, 'password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
-            ->post(route('admin.droits.users.activate', ['id' => 22]));
-        //->assertSessionHasNoErrors()
-        //->assertRedirectToRoute('admin.droits.users.show', $user);
+            ->patch(route('admin.droits.users.activate', ['id' => 22]))
+            ->assertSessionHasNoErrors()
+            ->assertOk();
         Mail::assertSent(ActiveUserMail::class);
     })
         ->with([
@@ -65,9 +75,9 @@ if (env('APP_ONLINE')) {
         Mail::fake();
         $user = User::factory()->create(['id' => 50]);
         actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1])->assignRole($roleEnum->value))
-            ->post(route('admin.droits.users.destroy', ['user' => $user, 'content' => 'test suppr']))
-            ->assertSessionHasNoErrors();
-        //->assertRedirectToRoute('admin.droits.users.index');
+            ->delete(route('admin.droits.users.destroy', ['user' => $user, 'content' => 'test suppr']))
+            ->assertSessionHasNoErrors()
+            ->assertRedirectToRoute('admin.droits.users.index');
         Mail::assertSent(DestroyUserMail::class);
     })
         ->with([
