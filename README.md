@@ -1,13 +1,8 @@
 ## Reste à faire
 - Add column table users pour OpenId
 
-- rechercher user par barre livewire
 
 - Factoriser les routes (prefix, name etc...)
-
-- Event et Listener à la place des actions dans les controleurs :
-	- Controller reinitpwd -> event reinit -> listener choix mail ou forcé mdp par défaut si hors ligne
-	- controller newuser -> event newuser -> listener choix mail ou mdp forcé par defaut si hors ligne
 
 - Passer les permissions dans les fichiers Policies et route en ressource
 
