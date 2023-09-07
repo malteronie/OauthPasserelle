@@ -32,6 +32,10 @@ class SocialiteAuthController extends Controller
     {
         $password = Str::password(12);
         try {
+
+            /**
+             * @var \SocialiteProviders\Manager\OAuth2\User $socialiteUser
+             */
             $socialiteUser = Socialite::driver('keycloak')->user();
 
             $existuser = User::where('email', $socialiteUser->email)->first();
