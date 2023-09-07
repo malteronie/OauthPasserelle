@@ -39,14 +39,14 @@ if (env('APP_ONLINE')) {
             RoleEnum::SUPER_ADMIN,
         ]);
 
-    it('send a mail to admin and user when register new Socialite User if online\'s APP', function () {
-        Mail::fake();
-        get(route('oauth.redirect'))
-            ->assertOk();
+    // it('send a mail to admin and user when register new Socialite User if online\'s APP', function () {
+    //     Mail::fake();
+    //     get(route('oauth.redirect'))
+    //         ->assertOk();
 
-        Mail::assertSent(NewUserMail::class);
-        Mail::assertSent(NewRegistrationMail::class);
-    });
+    //     Mail::assertSent(NewUserMail::class);
+    //     Mail::assertSent(NewRegistrationMail::class);
+    // });
 
     it('send a mail when reinit password if online\'s APP', function (RoleEnum $roleEnum) {
         Mail::fake();

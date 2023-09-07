@@ -30,9 +30,9 @@ it('has a waiting message when not activated', function () {
         ->assertSeeText('pas encore activé');
 });
 
-it('redirects to dashboard if Socialite\'s auth', function () {
+// it('redirects to dashboard if Socialite\'s auth', function () {
 
-});
+// });
 
 it('can\'t see users admin page if not admin', function () {
     actingAs(User::factory()->create(['password' => Hash::make(Str::password(12)), 'active' => 1]))
