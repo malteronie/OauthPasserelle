@@ -148,13 +148,13 @@ class UserController extends Controller
          * @var User $users
          */
         $users = User::findOrFail($request->id);
-        $users = strtoupper($request->name);
-        if (is_null($users)) {
+        $usersname = strtoupper($request->name);
+        if (empty($usersname)) {
             return $this->show($request->id)->with('error', 'Utilisateur non modifé, données incorrectes !');
         }
         $users->save();
 
-        return $this->show($users->id)->with('success', 'Utilisateur mis à jour');
+        return $this->show($users)->with('success', 'Utilisateur mis à jour');
     }
 
     /**
