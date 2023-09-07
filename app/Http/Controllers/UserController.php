@@ -130,7 +130,6 @@ class UserController extends Controller
     {
 
         $roles = new Role;
-        /* @phpstan-ignore-next-line */
         $roles->name = $request->rolename;
         $roles->save();
 
