@@ -14,6 +14,9 @@ class ActiveUser extends Component
      */
     public $user;
 
+    /**
+     * @var array<string>
+     */
     protected $listeners = ['refreshComponent' => '$refresh'];
 
     /**
@@ -22,7 +25,7 @@ class ActiveUser extends Component
      */
     public function active($user)
     {
-        if ($user['active'] === 0) {
+        if ($user['active'] === '0') {
             User::where('id', $user['id'])->update([
                 'active' => 1,
             ]);
