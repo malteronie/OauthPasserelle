@@ -16,6 +16,8 @@ class ActiveUserEvent
 
     /**
      * Create a new event instance.
+     * 
+     * @param array<string> $user
      */
     public function __construct(array $user)
     {
