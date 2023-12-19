@@ -7,7 +7,7 @@
 @if (Auth::user()->active == 0)
 <div class="justify-center flex ">
 
-    @include('shared.presentation')
+    <x-presentation />
     <div class="text-blue-900 w-3/12 overflow-hidden p-2 justify-center items-center">
         <h1 class="text-blue-700 text-3xl text-center mt-36">Bienvenue {{ auth()->user()->name }}</h1>
         <h2 class="text-red-600 text-2xl text-center mt-8">Votre compte n'est pas encore activé</h2>

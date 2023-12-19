@@ -5,7 +5,7 @@
 @section('content')
 <div class="justify-center flex ">
 
-    @include('shared.presentation')
+    <x-presentation />
 
     <!-- Bloc d'identification -->
     <div class="text-blue-900 w-3/12 overflow-hidden flex justify-center items-center">        
