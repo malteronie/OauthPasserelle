@@ -1,0 +1,1 @@
+<li><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block" {{ $attributes }}>{{ $slot }}</a></li>

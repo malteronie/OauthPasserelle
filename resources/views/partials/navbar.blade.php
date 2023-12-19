@@ -12,54 +12,33 @@
         @if (Auth::user()->active ==1)
         
         <!-- Copier cette div autant de fois que besoin de menu -->
-        <div class="dropdown inline-block">
-            <button class="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-                <span class="hover:text-gray-400 py-2 px-2 block whitespace-nowrap">Menu déroulant</span>
-                <svg class="fill-current h-4 w-4" viewbox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
-                </svg>
-            </button>    
+        <div class="dropdown inline-block">           
+            <x-navbar.menu>Menu déroulant </x-navbar.menu>        
             <ul class="dropdown-menu hidden absolute text-gray-500 pt-1">
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="">Premier sous menu</li></a>
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="">Deuxième sous menu</li></a>
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="">Troisième sous menu</li></a>
+            <x-navbar.sousmenu href="">Premier sous menu</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="">Deuxième sous menu</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="">Troisième sous menu</x-navbar.sousmenu>
             </ul>
         </div>
         <!-- Fin de la section à copier -->
         <div class="dropdown inline-block">
-            <button class="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-                <span class="hover:text-gray-400 py-2 px-2 block whitespace-nowrap">Menu déroulant</span>
-                <svg class="fill-current h-4 w-4" viewbox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
-                </svg>
-            </button>    
+            <x-navbar.menu>Menu déroulant </x-navbar.menu>    
             <ul class="dropdown-menu hidden absolute text-gray-500 pt-1">
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="">Premier sous menu</li></a>
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="">Deuxième sous menu</li></a>
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="">Troisième sous menu</li></a>
+            <x-navbar.sousmenu href="">Premier sous menu</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="">Deuxième sous menu</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="">Troisième sous menu</x-navbar.sousmenu>
             </ul>
         </div>
         <div class="dropdown inline-block">
-            <button class="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-                <span class="hover:text-gray-400 py-2 px-2 block whitespace-nowrap">Menu déroulant</span>
-                <svg class="fill-current h-4 w-4" viewbox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
-                </svg>
-            </button>    
+            <x-navbar.menu>Menu déroulant </x-navbar.menu>    
             <ul class="dropdown-menu hidden absolute text-gray-500 pt-1">
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="">Premier sous menu</li></a>
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="">Deuxième sous menu</li></a>
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="">Troisième sous menu</li></a>
+            <x-navbar.sousmenu href="">Premier sous menu</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="">Deuxième sous menu</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="">Troisième sous menu</x-navbar.sousmenu>
             </ul>
         </div>
         @endif
     </div>
-
-
-
-
-
-
     
     <div class="">
         @if (Auth::user()->active ==1)
@@ -71,17 +50,12 @@
         
         @hasanyrole($menudroits)
         <div class="dropdown inline-block">
-            <button class="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-                <span class="hover:text-gray-400 py-2 px-2 block whitespace-nowrap">Administration des droits</span>
-                <svg class="fill-current h-4 w-4" viewbox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
-                </svg>
-            </button>    
+            <x-navbar.menu>Administration des droits</x-navbar.menu>    
             <ul class="dropdown-menu hidden absolute text-gray-500 pt-1">
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="{{ route('admin.droits.users.index') }}">Gestion des utilisateurs</li></a>
+            <x-navbar.sousmenu href="{{ route('admin.droits.users.index') }}">Gestion des utilisateurs</x-navbar.sousmenu>
             @hasanyrole($menurolespermissions)
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="{{ route('admin.droits.roles.index') }}">Gestion des rôles</li></a>
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="{{ route('admin.droits.permissions.index') }}">Gestion des permissions</li></a>
+            <x-navbar.sousmenu href="{{ route('admin.droits.roles.index') }}">Gestion des rôles</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="{{ route('admin.droits.permissions.index') }}">Gestion des permissions</x-navbar.sousmenu>
             @endhasanyrole
         </ul>
         </div>
@@ -90,22 +64,17 @@
         @endif
         <!-- Menu de l'utilisateur connecté -->
         @auth
-        <div class="dropdown inline-block mr-12">
-            <button class="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-                <a class="hover:text-gray-400 py-2 px-2 block whitespace-nowrap" href="#">{{ auth()->user()->login }}</a>
-                <svg class="fill-current h-4 w-4" viewbox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
-                </svg>
-            </button>          
+        <div class="dropdown inline-block mr-12"> 
+            <x-navbar.menu>{{ auth()->user()->login }}</x-navbar.menu>          
             <ul class="dropdown-menu hidden absolute text-gray-500 pt-1">
             @if (Auth::user()->active == 1)  
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="{{ route('profile', Auth::user()->id ) }}">Mon profil</li></a>
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block " href="{{ route('change.pwd') }}">Changer mon mot de passe</li></a>
+            <x-navbar.sousmenu href="{{ route('profile', Auth::user()->id ) }}">Mon profil</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="{{ route('change.pwd') }}">Changer mon mot de passe</x-navbar.sousmenu>
             @endif
             @impersonating($guard = null)
-                <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block" href="{{ route('impersonate.leave') }}">Redevenir soi même</li></a>
+            <x-navbar.sousmenu href="{{ route('impersonate.leave') }}">Redevenir soi même</x-navbar.sousmenu>
             @endImpersonating
-            <li class=""><a class="bg-gray-200 hover:bg-gray-400 hover:text-white py-2 px-2 block whitespace-nowrap" href="{{ route('logout') }}">Déconnexion</li></a>
+            <x-navbar.sousmenu href="{{ route('logout') }}">Déconnexion</x-navbar.sousmenu>
             </ul>
         </div> 
         @endauth  
