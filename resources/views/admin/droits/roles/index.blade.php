@@ -15,10 +15,11 @@
         <thead>
         <th class="border whitespace-nowrap">Nom</th>
         <th class="border whitespace-nowrap">Permission(s) associée(s)</th>
+        <th class="border whitespace-nowrap">Actions</th>
         </thead>
         <tbody>
         @foreach ($roles as $role)
-        <tr onclick="window.location='{{ url('admin/droits/roles', $role->id) }}';">
+        <tr>
             <td class="border whitespace-nowrap text-center">{{ $role->name }}</td>
             <td class="border whitespace-nowrap px-12">
             @if($role->permissions)
@@ -27,6 +28,7 @@
                 @endforeach
             @endif
             </td>
+            <td class="border whitespace-nowrap"><x-button><a href="{{ route('admin.droits.roles.show', $role->id) }}">Editer</a></x-button></td>
         </tr>
         @endforeach
         </tbody>
@@ -34,19 +36,13 @@
 
     <div class="justify-center bg-white rounded-2xl py-3 px-4 flex">
         <form method="get" action="{{ route('admin.droits.roles.create') }}">
-            @csrf
-            <button class="w-48 align-center bg-blue-700 text-white rounded-xl py-2 hover:shadow-lg hover:shadow-blue-200 hover:bg-blue-800" type="submit">
-                    Ajouter
-            </button>
+            <x-button class="btn-add">Ajouter</x-button>
         </form>
     </div>
 
     <div class="justify-center bg-white rounded-2xl py-3 px-4 flex">
         <form method="get" action="{{ URL::previous() }}">
-            @csrf
-            <button class="w-48 align-center bg-orange-700 text-white rounded-xl py-2 hover:shadow-lg hover:shadow-orange-200 hover:bg-orange-800" type="submit">
-                    Retour
-            </button>
+            <x-button class="btn-back">Retour</x-button>
         </form>
     </div>
 </div>

@@ -21,7 +21,6 @@
                 <th class="p-2 border whitespace-nowrap">Affectation ANNUDEF</th>
                 <th class="p-2 border whitespace-nowrap">Rôle(s) attribué(s)</th>
                 <th class="p-2 border whitespace-nowrap">Permission(s) héritée(s)</th>
-                {{--<th class="p-2 border whitespace-nowrap">Activer / Désactiver</th>--}}
                 <th class="p-2 border whitespace-nowrap">Actions</th>
             </thead>
             <tbody>
@@ -46,18 +45,16 @@
                             {{ $user_permission->name }} <br>
                         @endforeach
                     @endif
-                    </td>
+                    </td>                    
                     <td class="p-2 border text-center">
                     <livewire:active-user :user="$user" />
-                    <button class="mt-2 w-48 align-center bg-amber-700 text-white rounded-xl  hover:shadow-lg hover:shadow-amber-200 hover:bg-amber-800">
-                        <a href="{{ route('admin.droits.users.show', $user->id) }}">Profil</a>
-                    </button>
-                     
+                    <x-button class="btn-profil"><a href="{{ route('admin.droits.users.show', $user->id) }}">Profil</a></x-button>
                     @canImpersonate($guard = null)
                         @canBeImpersonated($user, $guard = null)                                    
                         <button class="mt-2 w-48 align-center bg-blue-700 text-white rounded-xl  hover:shadow-lg hover:shadow-blue-200 hover:bg-blue-800">
                             <a href="{{ route('impersonate', $user->id) }}">Se faire passer pour...</a>
                         </button>
+                        
                         @endCanBeImpersonated
                     @endCanImpersonate
                     </td>
@@ -70,7 +67,6 @@
 
     <div class="justify-center bg-white rounded-2xl py-3 px-4 flex">
         <form method="get" action="{{ route('admin.droits.users.create') }}">
-            @csrf
             <button class="w-48 align-center bg-blue-700 text-white rounded-xl py-2 hover:shadow-lg hover:shadow-blue-200 hover:bg-blue-800" type="submit">
                     Ajouter
             </button>
@@ -79,7 +75,6 @@
 
     <div class="justify-center bg-white rounded-2xl py-3 px-4 flex">
         <form method="get" action="{{ URL::previous() }}">
-            @csrf
             <button class="w-48 align-center bg-orange-700 text-white rounded-xl py-2 hover:shadow-lg hover:shadow-orange-200 hover:bg-orange-800" type="submit">
                     Retour
             </button>
