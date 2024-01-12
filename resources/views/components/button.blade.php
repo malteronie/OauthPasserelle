@@ -1,0 +1,1 @@
+<button type="submit" {{ $attributes->merge(['class' => 'btn block mt-3']) }}>{{ $slot }}</button>
