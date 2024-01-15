@@ -10,8 +10,9 @@
             @csrf                    
             <label for="name" class="block font-semibold text-gray-700 mb-2">Nom de la permission</label>            
             <input type='text' placeholder='Permission' name='name' id='name' class="  px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" maxlength='32' autofocus>
-            <button type="submit" class="bg-blue-500 text-white hover:bg-blue-700 transition ease-in-out duration-500 rounded-md shadow-md w-full block px-4 py-2 mt-3">Créer</button>
-        
+            
+            <x-button class="btn-create">Créer</x-button>
+            
             <input class="bg-orange-500 text-white hover:bg-orange-700 transition ease-in-out duration-500 rounded-md shadow-md w-full block px-4 py-2 mt-3" type="button" value="Retour" onclick="history.back()"  />
     
         </form>

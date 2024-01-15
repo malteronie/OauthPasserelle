@@ -4,3 +4,55 @@
 
 .dropdown:hover
 .dropdown-menu { display: block;}
+
+.btn {
+    @apply rounded-md duration-500 shadow-md;
+}
+.btn-blue {
+    @apply bg-blue-500 w-full text-white;
+}
+.btn-blue:hover {
+    @apply bg-blue-700;
+}
+.btn-green {
+    @apply bg-green-500 w-full text-white;
+}
+.btn-green:hover {
+    @apply bg-green-700;
+}
+.btn-red {
+    @apply bg-red-500 w-full text-white;
+}
+.btn-red:hover {
+    @apply bg-red-700;
+}
+.btn-reinit {
+    @apply bg-red-500 w-full text-white rounded-xl;
+}
+.btn-reinit:hover {
+    @apply bg-red-700 shadow-lg shadow-red-200;
+}
+.btn-profil {
+    @apply bg-amber-700 w-full text-white rounded-full;
+}
+.btn-profil:hover {
+    @apply bg-amber-800 shadow-lg shadow-amber-200;
+}
+.btn-add {
+    @apply bg-blue-700 w-48 text-white rounded-xl py-2;
+}
+.btn-add:hover {
+    @apply bg-blue-800 shadow-lg shadow-blue-200
+}
+.btn-back {
+    @apply bg-orange-700 w-48 text-white rounded-xl py-2;
+}
+.btn-back:hover {
+    @apply bg-orange-800 shadow-lg shadow-orange-200
+}
+.btn-create {
+    @apply bg-blue-500 w-full text-white rounded-md py-2;
+}
+.btn-create:hover {
+    @apply bg-blue-700
+}

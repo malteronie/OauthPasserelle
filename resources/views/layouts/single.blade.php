@@ -16,11 +16,11 @@
 </head>
 <body>
     <div>
-        @include('partials.header')
+        <x-layouts.header />
         @include('partials.navbar')
         @include('partials.flash')
         @yield('content')
-        @include('partials.footer')
+        <x-layouts.footer />
     </div>
     @livewireScripts
 </body>

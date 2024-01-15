@@ -12,8 +12,7 @@
         <textarea placeholder='Votre demande' name='message' id='message' cols="35" rows="15"
                     class="px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100"></textarea>
     
-        <button type="submit" class="bg-blue-500 text-white hover:bg-blue-700 transition ease-in-out duration-500 rounded-md shadow-md w-full block px-4 py-2 mt-3">Envoyer</button>
-
+        <x-button class="btn-blue py-2 shadow-md">Envoyer</x-button>
     </form>
 </div>
 
