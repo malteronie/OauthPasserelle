@@ -8,11 +8,8 @@
 <div class="bg-white rounded-2xl px-4 space-y-2 w-96 shadow-lg">
     <div class="bg-white rounded-2xl mt-5">
         <form method="get" action="{{ route('admin.droits.roles.update', $role->id) }}">
-            <label for="rolename">Nom : </label>
-            <input type="text" id="rolename" name="rolename" value="{{ $role->name }}"  class="  px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" />
-            <button class="mt-4 bg-red-500 text-white w-full rounded-xl py-2 shadow hover:shadow-lg hover:shadow-red-200 hover:bg-red-700" type="submit">
-                    Renommer
-            </button>
+            <x-input type="text" id="rolename" name="rolename" :value="$role->name">Nom : </x-input>
+            <x-button class="mt-4 btn-rename">Renommer</x-button>
         </form>        
     </div>
     <div class="bg-white rounded-2xl pt-5 pb-2 px-4 space-y-2">
