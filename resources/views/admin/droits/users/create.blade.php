@@ -13,13 +13,10 @@
             <input type='text' placeholder='Identifiant' name='login' id='login' class="  px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" maxlength='32' autofocus>                       
             <label for="email" class="block font-semibold text-gray-700 mt-2 mb-2">E-mail</label>            
             <input type='email' placeholder='E-mail' name='email' id='email' class="mb-2  px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" maxlength='32' autofocus>                       
-            
-            <button type="submit" class="bg-blue-500 text-white hover:bg-blue-700 transition ease-in-out duration-500 rounded-md shadow-md w-full block px-4 py-2 mt-3">Créer</button>
+            <x-button class="btn-create py-2">Créer</x-button>
         </form>
         <form method="get" action="{{ route('admin.droits.users.index') }}" class="px-5">
-            <button class="btn-back mb-5" type="submit">
-                    Retour
-            </button>
+            <x-button class="btn-back mb-5">Retour</x-button>
         </form>
     </div>
 </div>
