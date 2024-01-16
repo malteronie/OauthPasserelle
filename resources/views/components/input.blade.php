@@ -1,2 +1,2 @@
 <label for="{{ $name }}">{{ $slot }}</label>
-<input type="{{ $type }}" id="{{ $id }}" name="{{ $name }}" value="{{ $value }}" class="  px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" />
+<input placeholder="{{ $placeholder }}" type="{{ $type }}" id="{{ $id }}" name="{{ $name }}" value="{{ $value }}" class="px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" />
