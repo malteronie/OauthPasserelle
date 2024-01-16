@@ -8,10 +8,10 @@
 .btn {
     @apply rounded-md duration-500 shadow-md;
 }
-.btn-blue {
-    @apply bg-blue-500 w-full text-white;
+.btn-create {
+    @apply bg-blue-500 w-full text-white shadow-md;
 }
-.btn-blue:hover {
+.btn-create:hover {
     @apply bg-blue-700;
 }
 .btn-green {
