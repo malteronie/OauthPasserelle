@@ -56,7 +56,7 @@ Route::prefix('admin/droits')->middleware(['auth', 'check', 'useractive'])->name
         Route::patch('/users/{id}', 'activate')->name('users.activate')->where('id', '[0-9]+')->middleware('permission:update_droits|update_users');
         Route::get('/users/{user}', 'show')->name('users.show')->where('user', '[0-9]+')->middleware('permission:read_droits|read_users');
         Route::delete('/users/{user}', 'destroy')->name('users.destroy')->where('user', '[0-9]+')->middleware('permission:delete_droits|delete_users');
-        Route::post('/users/{user}', 'update')->name('users.update')->where('user', '[0-9]+')->middleware('permission:update_droits|update_users');
+        Route::patch('/users/{user}', 'update')->name('users.update')->where('user', '[0-9]+')->middleware('permission:update_droits|update_users');
         Route::post('/users/{user}/roles', 'giveRole')->name('users.roles')->middleware('permission:update_droits|update_users');
         Route::delete('/users/{user}/roles/{role}', 'revokeRole')->name('users.roles.revoke')->middleware('permission:update_droits|update_users');
     });
@@ -65,7 +65,7 @@ Route::prefix('admin/droits')->middleware(['auth', 'check', 'useractive'])->name
         Route::get('/roles', 'index')->name('roles.index')->middleware('permission:read_droits');
         Route::post('/roles', 'store')->name('roles.store')->middleware('permission:create_droits');
         Route::get('/roles/{id}', 'show')->name('roles.show')->where('id', '[0-9]+')->middleware('permission:read_droits');
-        Route::post('/roles/{id}', 'update')->name('roles.update')->where('id', '[0-9]+')->middleware('permission:update_droits');
+        Route::patch('/roles/{id}', 'update')->name('roles.update')->where('id', '[0-9]+')->middleware('permission:update_droits');
         route::get('/roles/create', 'create')->name('roles.create')->middleware('permission:create_droits');
         Route::post('/roles/{role}/permissions', 'givePermission')->name('roles.permissions')->middleware('permission:update_droits');
         Route::delete('/roles/{role}/permissions/{permission}', 'revokePermission')->name('roles.permissions.revoke')->middleware('permission:update_droits');
@@ -75,7 +75,7 @@ Route::prefix('admin/droits')->middleware(['auth', 'check', 'useractive'])->name
         Route::get('/permissions', 'index')->name('permissions.index')->middleware('permission:read_droits');
         Route::post('/permissions', 'store')->name('permissions.store')->middleware('permission:create_droits');
         Route::get('/permissions/{id}', 'show')->name('permissions.show')->where('id', '[0-9]+')->middleware('permission:read_droits');
-        Route::post('/permissions/{id}', 'update')->name('permissions.update')->where('id', '[0-9]+')->middleware('permission:update_droits');
+        Route::patch('/permissions/{id}', 'update')->name('permissions.update')->where('id', '[0-9]+')->middleware('permission:update_droits');
         route::get('/permissions/create', 'create')->name('permissions.create')->middleware('permission:create_droits');
         Route::post('/permissions/{permission}/roles', 'giveRole')->name('permissions.roles')->middleware('permission:update_droits');
         Route::delete('/permissions/{permission}/roles/{role}', 'revokeRole')->name('permissions.roles.revoke')->middleware('permission:update_droits');
