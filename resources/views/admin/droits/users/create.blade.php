@@ -10,9 +10,9 @@
         <form method='post' action="{{ route('admin.droits.users.store') }}" class="p-5">
         @csrf                    
             <label for="login" class="block font-semibold text-gray-700 mb-2">Identifiant (identique à l'Intradef)</label>            
-            <input type='text' placeholder='Identifiant' name='login' id='login' class="  px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" maxlength='32' autofocus>                       
+            <x-input type='text' placeholder='Identifiant' name='login' id='login' maxlength='32' autofocus/>                       
             <label for="email" class="block font-semibold text-gray-700 mt-2 mb-2">E-mail</label>            
-            <input type='email' placeholder='E-mail' name='email' id='email' class="mb-2  px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" maxlength='32' autofocus>                       
+            <x-input type='email' placeholder='E-mail' name='email' id='email' maxlength='32' autofocus/>                       
             <x-button class="btn-create py-2">Créer</x-button>
         </form>
         <form method="get" action="{{ route('admin.droits.users.index') }}" class="px-5">
