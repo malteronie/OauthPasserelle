@@ -51,9 +51,7 @@
                     <x-button class="btn-profil"><a href="{{ route('admin.droits.users.show', $user->id) }}">Profil</a></x-button>
                     @canImpersonate($guard = null)
                         @canBeImpersonated($user, $guard = null)                                    
-                        <button class="mt-2 w-48 align-center bg-blue-700 text-white rounded-xl  hover:shadow-lg hover:shadow-blue-200 hover:bg-blue-800">
-                            <a href="{{ route('impersonate', $user->id) }}">Se faire passer pour...</a>
-                        </button>
+                        <x-button class="btn-impers"><a href="{{ route('impersonate', $user->id) }}">Se faire passer pour...</a></x-button>
                         
                         @endCanBeImpersonated
                     @endCanImpersonate
@@ -67,9 +65,7 @@
 
     <div class="justify-center bg-white rounded-2xl py-3 px-4 flex">
         <form method="get" action="{{ route('admin.droits.users.create') }}">
-            <button class="w-48 align-center bg-blue-700 text-white rounded-xl py-2 hover:shadow-lg hover:shadow-blue-200 hover:bg-blue-800" type="submit">
-                    Ajouter
-            </button>
+            <x-button class="btn-add">Ajouter</x-button>
         </form>
     </div>
 </div>

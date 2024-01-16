@@ -21,7 +21,7 @@
                 <td class="border whitespace-nowrap text-center px-12">{{ $permission->name }}</td>
                 <td class="border whitespace-nowrap px-12">
                     <x-button class="btn-blue"><a href="{{ route('admin.droits.permissions.show', $permission->id) }}">Editer</a></x-button>
-                    <x-button class="btn-red mb-3"><a href="{{ route('admin.droits.permissions.show', $permission->id) }}">Supprimer</a></x-button>
+                    <x-button class="btn-suppr mb-3"><a href="{{ route('admin.droits.permissions.show', $permission->id) }}">Supprimer</a></x-button>
                 </td>
             </tr>
             @endforeach

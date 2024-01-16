@@ -7,13 +7,11 @@
     <div class="mt-4 bg-white rounded-2xl px-4 space-y-2 w-96 shadow-lg">
         <h1 class="text-3xl text-blue-600 text-center mb-5">Utilisateur : {{ ucfirst($user->name) }}</h1>
         <div class="bg-white rounded-2xl mt-5">
-            <form method="put" class="" action="{{ route('admin.droits.users.update', $user->id) }}">
+            <form method="post" class="" action="{{ route('admin.droits.users.update', $user->id) }}">
                 @csrf
-                <label for="username">Identifiant : </label>
-                <input type="text" id="username" name="username" value="{{ $user->login }}" class="  px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" />
-                {{--<button class="mt-4 bg-amber-500 text-white w-full rounded-xl py-2 shadow hover:shadow-lg hover:shadow-amber-200 hover:bg-amber-700" type="submit">
-                        Renommer
-                </button>--}}
+                @method('patch')
+                <x-input type="text" id="username" name="username" :value="$user->name">Identifiant : </x-input>
+                {{--<x-button class="btn-rename">Renommer</x-button>--}}
             </form>        
         </div>
         <form method="post" action="{{ route('reinit.pwd', $user) }}">
@@ -67,9 +65,7 @@
                     <span class="text-red-400 text-sm">{{ $message }}</span>
                 @enderror
                 <div class="">
-                <button class="mt-4 bg-green-600 text-white w-full rounded-xl py-2 shadow hover:shadow-lg hover:shadow-green-200 hover:bg-green-700" type="submit">
-                        Ajouter
-                </button>
+                <x-button class="btn-addroleperm">Ajouter</x-button>
                 </div>
             </form>
         </div>
@@ -83,20 +79,15 @@
             <form x-show="open" x-cloak method="POST" action="{{ route('admin.droits.users.destroy', $user) }}">
                 @csrf
                 @method('DELETE')
-                <div><textarea class="w-full max-w-md p-3 bg-red-200" placeholder="Motif de refus/suppression" name="content" required></textarea>
-                <button type="submit" class="w-full rounded-xl py-2 shadow text-white hover:shadow-lg bg-red-700 hover:shadow-red-200 hover:bg-red-800">Confirmer la suppression</button>
+                <div>
+                    <textarea class="w-full max-w-md p-3 bg-red-200" placeholder="Motif de refus/suppression" name="content" required></textarea>
+                    <x-button class="btn-suppr py-2 mb-3">Confirmer la suppression</x-button>
                 </div>
             </form>
         </section>
-
-
-
-
         <div class="bg-white rounded-2xl pb-3 px-4 space-y-2">
             <form method="get" action="{{ route('admin.droits.users.index') }}">
-                <button class="mt-4 bg-orange-600 text-white w-full rounded-xl py-2 shadow hover:shadow-lg hover:shadow-orange-200 hover:bg-orange-700" type="submit">
-                        Retour
-                </button>
+                <x-button class="btn-back">Retour</x-button>
             </form>
         </div>
     </div>
