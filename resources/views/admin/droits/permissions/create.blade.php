@@ -9,12 +9,12 @@
         <form method='post' action="{{ route('admin.droits.permissions.store') }}" class=" p-5 mb-5">
             @csrf                    
             <label for="name" class="block font-semibold text-gray-700 mb-2">Nom de la permission</label>            
-            <input type='text' placeholder='Permission' name='name' id='name' class="  px-3 py-2 rounded-xl bg-indigo-50/70 outline-none focus:bg-indigo-100/100" maxlength='32' autofocus>
+            <x-input type='text' placeholder='Permission' name='name' id='name' maxlength='32' autofocus></x-input>
             
             <x-button class="btn-create">Créer</x-button>
             
             <input class="bg-orange-500 text-white hover:bg-orange-700 transition ease-in-out duration-500 rounded-md shadow-md w-full block px-4 py-2 mt-3" type="button" value="Retour" onclick="history.back()"  />
-    
+            <x-button class="btn-back block">Retour</x-button>
         </form>
     </div>
 </div>
