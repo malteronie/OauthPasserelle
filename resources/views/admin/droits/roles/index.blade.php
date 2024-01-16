@@ -36,16 +36,10 @@
         @endforeach
         </tbody>
     </table>
-
+    {{ $roles->links('pagination::tailwind') }}
     <div class="justify-center bg-white rounded-2xl py-3 px-4 flex">
         <form method="get" action="{{ route('admin.droits.roles.create') }}">
             <x-button class="btn-add">Ajouter</x-button>
-        </form>
-    </div>
-
-    <div class="justify-center bg-white rounded-2xl py-3 px-4 flex">
-        <form method="get" action="{{ URL::previous() }}">
-            <x-button class="btn-back">Retour</x-button>
         </form>
     </div>
 </div>

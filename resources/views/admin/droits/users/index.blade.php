@@ -72,14 +72,6 @@
             </button>
         </form>
     </div>
-
-    <div class="justify-center bg-white rounded-2xl py-3 px-4 flex">
-        <form method="get" action="{{ URL::previous() }}">
-            <button class="w-48 align-center bg-orange-700 text-white rounded-xl py-2 hover:shadow-lg hover:shadow-orange-200 hover:bg-orange-800" type="submit">
-                    Retour
-            </button>
-        </form>
-    </div>
 </div>
 <div class="w-1/12">
 
