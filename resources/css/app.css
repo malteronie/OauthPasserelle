@@ -51,7 +51,7 @@
     @apply bg-blue-800 shadow-lg shadow-blue-200
 }
 .btn-back {
-    @apply bg-orange-700 w-48 text-white rounded-xl py-2;
+    @apply bg-orange-700 w-full text-white rounded-md shadow-md py-2;
 }
 .btn-back:hover {
     @apply bg-orange-800 shadow-lg shadow-orange-200
