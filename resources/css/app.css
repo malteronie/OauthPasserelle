@@ -26,6 +26,12 @@
 .btn-red:hover {
     @apply bg-red-700;
 }
+.btn-suppr {
+    @apply bg-red-700 w-full text-white;
+}
+.btn-suppr:hover {
+    @apply bg-red-800 shadow-lg shadow-red-200;
+}
 .btn-rename {
     @apply bg-red-500 w-full text-white rounded-xl py-2;
 }
@@ -50,11 +56,23 @@
 .btn-profil:hover {
     @apply bg-amber-800 shadow-lg shadow-amber-200;
 }
+.btn-impers {
+    @apply bg-blue-700 w-full text-white rounded-full;
+}
+.btn-impers:hover {
+    @apply bg-blue-800 shadow-lg shadow-blue-200;
+}
 .btn-add {
     @apply bg-blue-700 w-48 text-white rounded-xl py-2;
 }
 .btn-add:hover {
-    @apply bg-blue-800 shadow-lg shadow-blue-200
+    @apply bg-blue-800 shadow-lg shadow-blue-200;
+}
+.btn-addroleperm {
+    @apply bg-green-600 text-white w-full rounded-xl py-2;
+}
+.btn-addroleperm:hover {
+    @apply shadow-lg shadow-green-200 bg-green-700;
 }
 .btn-back {
     @apply bg-orange-700 w-full text-white rounded-md shadow-md py-2;
