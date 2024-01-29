@@ -25,13 +25,14 @@ class ActiveUser extends Component
      */
     public function active($user)
     {
-        if ($user['active'] === '0') {
+        if ($user['active'] == '0') {
             User::where('id', $user['id'])->update([
                 'active' => 1,
             ]);
-
-            Mail::send(new ActiveUserMail($user));
-
+            if (env('APP_ONLINE'))
+            {
+                Mail::send(new ActiveUserMail($user));
+            }
             $this->emit('refreshComponent');
         } else {
             User::where('id', $user['id'])->update([
