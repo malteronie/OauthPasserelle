@@ -62,12 +62,12 @@ class UserController extends Controller
             $user->save();
             event(new ActiveUserEvent($user->toArray()));
 
-            return $this->show($user)->with('success', 'L\'utilisateur '.$user->name.' a bien été activé');
+            return to_route('admin.droits.users.show', $user)->with('success', 'L\'utilisateur '.$user->name.' a bien été activé');
         } else {
             $user->active = false;
             $user->save();
 
-            return $this->show($user)->with('success', 'L\'utilisateur '.$user->name.' a bien été désactivé');
+            return to_route('admin.droits.users.show', $user)->with('success', 'L\'utilisateur '.$user->name.' a bien été désactivé');
         }
 
     }
@@ -103,7 +103,7 @@ class UserController extends Controller
 
         event(new NewUserEvent($request->validated(), $password));
 
-        return $this->index()->with('success', 'Le nouvel utilisateur a bien été créé');
+        return to_route('admin.droits.users.index')->with('success', 'Le nouvel utilisateur a bien été créé');
     }
 
     /**
@@ -150,11 +150,11 @@ class UserController extends Controller
         $users = User::findOrFail($request->id);
         $usersname = strtoupper($request->name);
         if (empty($usersname)) {
-            return $this->show($request->id)->with('error', 'Utilisateur non modifé, données incorrectes !');
+            return to_route('admin.droits.users.show', $request->id)->with('error', 'Utilisateur non modifé, données incorrectes !');
         }
         $users->save();
 
-        return $this->show($users)->with('success', 'Utilisateur mis à jour');
+        return to_route('admin.droits.users.show', $request->id)->with('success', 'Utilisateur mis à jour');
     }
 
     /**
@@ -182,7 +182,7 @@ class UserController extends Controller
         event(new DeleteUserEvent($user->toArray(), $request->toArray()));
         User::find($user->id)->delete();
 
-        return to_route('admin.droits.users.index');
+        return to_route('admin.droits.users.index')->with('success', 'L\'utilisateur '. $user->name . ' a bien été supprimé');
     }
 
     /**
@@ -252,10 +252,16 @@ class UserController extends Controller
 
         $users->password = Hash::make($password);
         $users->save();
+        if (env('APP_ONLINE'))
+        {
+            event(new ReinitPwdEvent($users->email, $password));
 
-        event(new ReinitPwdEvent($users->email, $password));
-
-        return $this->show($users)->with('success', 'Le mot de passe a bien été réinitialisé');
+            return to_route('admin.droits.users.show',$users)->with('success', 'Le mot de passe a bien été réinitialisé');
+        }
+        else
+        {
+            return to_route('admin.droits.users.show',$users)->with('success', 'Le mot de passe a bien été réinitialisé par ' . $password);
+        }
     }
 
     /**
