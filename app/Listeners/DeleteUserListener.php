@@ -21,6 +21,9 @@ class DeleteUserListener
      */
     public function handle(DeleteUserEvent $event): void
     {
-        Mail::send(new DestroyUserMail($event->user, $event->content['content']));
+        if (env('APP_ONLINE'))
+        {
+            Mail::send(new DestroyUserMail($event->user, $event->content['content']));
+        }
     }
 }

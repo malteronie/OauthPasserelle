@@ -26,12 +26,6 @@ class ReinitPwdListener
              * Pour une version en ligne Intradef utilisé ce paragraphe
              */
             Mail::send(new ReinitPwdMail($event->email, $event->password));
-        } else {
-            /**
-             * Pour une version hors ligne utiliser ce paragraphe
-             */
-            dd('Réinitialisation du mot de passe par '.$event->password.' envoyé à '.$event->email);
-        }
-
+        } 
     }
 }
