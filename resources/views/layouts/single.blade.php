@@ -18,7 +18,7 @@
     <div>
         <x-layouts.header />
         @include('partials.navbar')
-        @include('partials.flash')
+        <x-flash />
         @yield('content')
         <x-layouts.footer />
     </div>
