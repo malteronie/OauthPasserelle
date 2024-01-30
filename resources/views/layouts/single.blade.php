@@ -17,7 +17,7 @@
 <body>
     <div>
         <x-layouts.header />
-        @include('partials.navbar')
+        <x-navbar />
         <x-flash />
         @yield('content')
         <x-layouts.footer />
