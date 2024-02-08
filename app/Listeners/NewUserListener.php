@@ -21,7 +21,7 @@ class NewUserListener
      */
     public function handle(NewUserEvent $event): void
     {
-        if (env('APP_ONLINE')) {
+        if (env('APP_MAILABLE')) {
             /**
              * Pour une version en ligne Intradef utilisé ce paragraphe
              */

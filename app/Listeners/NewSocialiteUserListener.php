@@ -22,7 +22,7 @@ class NewSocialiteUserListener
      */
     public function handle(NewSocialiteUserEvent $event): void
     {
-        if (env('APP_ONLINE')) {
+        if (env('APP_MAILABLE')) {
             Mail::send(new NewUserMail($event->user, $event->password));
             Mail::send(new NewRegistrationMail($event->user));
         }

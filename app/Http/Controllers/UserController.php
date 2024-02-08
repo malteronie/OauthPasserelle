@@ -85,7 +85,7 @@ class UserController extends Controller
         $users->name = Str::random(10);
         $users->email = $request->email;
 
-        if (env('APP_ONLINE')) {
+        if (env('APP_MAILABLE')) {
             /**
              * Si version en ligne avec messagerie utiliser ceci
              */
@@ -237,7 +237,7 @@ class UserController extends Controller
 
         $users = User::findOrFail($request);
 
-        if (env('APP_ONLINE')) {
+        if (env('APP_MAILABLE')) {
             /**
              * Si version en ligne avec messagerie utiliser ceci
              */
@@ -252,7 +252,7 @@ class UserController extends Controller
 
         $users->password = Hash::make($password);
         $users->save();
-        if (env('APP_ONLINE'))
+        if (env('APP_MAILABLE'))
         {
             event(new ReinitPwdEvent($users->email, $password));
 

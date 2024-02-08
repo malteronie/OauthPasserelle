@@ -21,7 +21,7 @@ beforeEach(
     fn () => $this->seed(\Database\Seeders\DatabaseSeeder::class),
 );
 
-if (env('APP_ONLINE')) {
+if (env('APP_MAILABLE')) {
 
     it('send a mail when register new user if online\'s APP', function (RoleEnum $roleEnum) {
         Mail::fake();

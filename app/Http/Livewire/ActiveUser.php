@@ -29,7 +29,7 @@ class ActiveUser extends Component
             User::where('id', $user['id'])->update([
                 'active' => 1,
             ]);
-            if (env('APP_ONLINE'))
+            if (env('APP_MAILABLE'))
             {
                 Mail::send(new ActiveUserMail($user));
             }

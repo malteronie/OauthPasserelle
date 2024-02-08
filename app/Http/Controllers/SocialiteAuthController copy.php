@@ -43,27 +43,27 @@ class SocialiteAuthController extends Controller
             if ($existuser == null) {
                 $user = User::updateOrCreate(
                     ['email' => strtolower($socialiteUser->getEmail())],
-                    ['short_rank' => $socialiteUser->short_rank,
-                        'rank' => $socialiteUser->rank,
-                        'name' => $socialiteUser->getName(),
+                    ['short_rank' => $socialiteUser->user['short_rank'],
+                        'rank' => $socialiteUser->user['rank'],
+                        'name' => $socialiteUser->user['display_name'],
                         'first_name' => $socialiteUser->user['given_name'],
                         'last_name' => $socialiteUser->user['family_name'],
-                        'login' => $socialiteUser->domain_login,
-                        'affectation_annudef' => $socialiteUser->main_department_number,
+                        'login' => $socialiteUser->user['preferred_name'],
+                        'affectation_annudef' => $socialiteUser->user['main_department_number'],
                         'password' => Hash::make($password), ]);
 
                 event(new NewSocialiteUserEvent($user->toArray(), $password));
             } else {
                 $user = User::updateOrCreate(
                     ['email' => strtolower($socialiteUser->getEmail())],
-                    ['short_rank' => $socialiteUser->short_rank,
-                        'rank' => $socialiteUser->rank,
-                        'name' => $socialiteUser->getName(),
+                    ['short_rank' => $socialiteUser->user['short_rank'],
+                        'rank' => $socialiteUser->user['rank'],
+                        'name' => $socialiteUser->user['display_name'],
                         'first_name' => $socialiteUser->user['given_name'],
                         'last_name' => $socialiteUser->user['family_name'],
-                        'login' => $socialiteUser->domain_login,
-                        'affectation_annudef' => $socialiteUser->main_department_number, ]
-                );
+                        'login' => $socialiteUser->user['preferred_name'],
+                        'affectation_annudef' => $socialiteUser->user['main_department_number'],
+                ]);
             }
 
             Auth::login($user);

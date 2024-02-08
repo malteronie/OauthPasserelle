@@ -18,9 +18,9 @@
                 <th class="p-2 border whitespace-nowrap">Prénom</th>
                 <th class="p-2 border whitespace-nowrap">identifiant</th>
                 <th class="p-2 border whitespace-nowrap">E-mail</th>
-                <th class="p-2 border whitespace-nowrap">Affectation ANNUDEF</th>
-                <th class="p-2 border whitespace-nowrap">Rôle(s) attribué(s)</th>
-                <th class="p-2 border whitespace-nowrap">Permission(s) héritée(s)</th>
+                <th class="p-2 border ">Affectation ANNUDEF</th>
+                <th class="p-2 border ">Rôle(s) attribué(s)</th>
+                <th class="p-2 border ">Permission(s) héritée(s)</th>
                 <th class="p-2 border whitespace-nowrap">Actions</th>
             </thead>
             <tbody>

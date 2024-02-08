@@ -21,7 +21,7 @@ class ActiveUserListener
      */
     public function handle(ActiveUserEvent $event): void
     {
-        if (env('APP_ONLINE'))
+        if (env('APP_MAILABLE'))
         {
             Mail::send(new ActiveUserMail($event->user));
         }
