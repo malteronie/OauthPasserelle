@@ -36,7 +36,7 @@ class SocialiteAuthController extends Controller
             /**
              * @var \SocialiteProviders\Manager\OAuth2\User $socialiteUser
              */
-            $socialiteUser = Socialite::driver('keycloak')->user();
+            $socialiteUser = Socialite::driver('keycloak')->stateless()->user();
 
             $existuser = User::where('email', $socialiteUser->email)->first();
 
@@ -48,7 +48,7 @@ class SocialiteAuthController extends Controller
                         'name' => $socialiteUser->user['display_name'],
                         'first_name' => $socialiteUser->user['given_name'],
                         'last_name' => $socialiteUser->user['family_name'],
-                        'login' => $socialiteUser->user['preferred_name'],
+                        'login' => $socialiteUser->user['preferred_username'],
                         'affectation_annudef' => $socialiteUser->user['main_department_number'],
                         'password' => Hash::make($password), ]);
 
@@ -61,7 +61,7 @@ class SocialiteAuthController extends Controller
                         'name' => $socialiteUser->user['display_name'],
                         'first_name' => $socialiteUser->user['given_name'],
                         'last_name' => $socialiteUser->user['family_name'],
-                        'login' => $socialiteUser->user['preferred_name'],
+                        'login' => $socialiteUser->user['preferred_username'],
                         'affectation_annudef' => $socialiteUser->user['main_department_number'],
                 ]);
             }
