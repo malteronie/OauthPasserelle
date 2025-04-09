@@ -13,7 +13,14 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-
+    'passport' => [
+        'url'=>'url du proxy',
+        'client_id' => env('APP_CLIENT_ID'),
+        'client_secret' => env('APP_CLIENT_SECRET'),
+        'redirect' => env('APP_CLIENT_REDIRECT_URL'),
+        'proxy' => '',
+    ],
+    
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

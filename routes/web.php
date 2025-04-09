@@ -6,6 +6,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SocialiteAuthController;
 use App\Http\Controllers\UserController;
+use GuzzleHttp\Handler\Proxy;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +21,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/dashboard/clients', function(Request $request) {
+    return view('proxy.clients', [
+        'clients' => $request->user()->clients
+    ]);
+})->middleware(['auth'])->name('dashboard.clients');
+
 /**Connexion / Déconnexion */
 Route::controller(AuthenticationController::class)->group(function () {
     Route::get('login', 'form')->middleware('guest')->name('login');
@@ -31,6 +39,12 @@ Route::controller(AuthenticationController::class)->group(function () {
 /**Impersonnate */
 Route::impersonate();
 
+Route::controller(SocialiteAuthController::class)->group(function(){
+    Route::get('/oauth/callback', 'authenticate')->name('oauth.callback');
+    Route::get('/oauth/redirect', 'redirect')->name('oauth.redirect');
+});
+
+
 /**Users functionnalities */
 Route::controller(UserController::class)->middleware(['auth', 'useractive'])->group(function () {
     Route::get('/changepwd', 'check')->name('change.pwd');
@@ -39,11 +53,11 @@ Route::controller(UserController::class)->middleware(['auth', 'useractive'])->gr
     Route::get('profile/{user}', 'profile')->name('profile');
 });
 
-/**MindefConnect */
-Route::controller(SocialiteAuthController::class)->group(function () {
-    Route::get('oauth/keycloak/redirect', 'redirect')->name('oauth.redirect');
-    Route::get('oauth/keycloak/callback', 'authenticate');
-});
+// /**MindefConnect */
+// Route::controller(SocialiteAuthController::class)->group(function () {
+//     Route::get('oauth/keycloak/redirect', 'redirect')->name('oauth.redirect');
+//     Route::get('oauth/keycloak/callback', 'authenticate');
+// });
 
 /** Administration des utilisateurs, roles et permissions */
 Route::prefix('admin/droits')->middleware(['auth', 'check', 'useractive'])->name('admin.droits.')->group(function () {
@@ -91,3 +105,15 @@ Route::get('/contact', function () {
 })->name('contact')->middleware(['auth', 'check']);
 
 Route::post('/contact', [HomeController::class, 'contact'])->name('postcontact');
+
+Route::get('/add_client', function(){
+    return view('proxy.add_client');
+})->name('add.client');
+
+Route::get('/params_proxy', function(){
+    return view('proxy.params');
+})->name('param.proxy');
+
+Route::post('/changeParams/{param}', [SocialiteAuthController::class, 'changeParams']);
+
+Route::delete('/delete/{id}',[ SocialiteAuthController::class, 'destroyClient']);

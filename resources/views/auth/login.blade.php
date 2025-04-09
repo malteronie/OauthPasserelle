@@ -16,6 +16,7 @@
                 <x-input type="text" id="login" name="login">Identifiant : </x-input>
                 
                 <x-input type="password" id="password" name="password">Mot de passe : </x-input>
+                <a href="{{route('oauth.redirect')}}"><img src="{{asset('oauth.png')}}" style="width: 50px; height:50px" alt="oauth"></a>
                 <a class="mt-1 text-right text-xs" href="{{ route('forgotpwd') }}">Mot de passe oublié?</a>
 
                 <x-button class="btn-blue py-2">Connexion</x-button>

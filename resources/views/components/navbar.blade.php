@@ -10,14 +10,21 @@
         <!-- Fin de la première section -->
 
         @if (Auth::user()->active ==1)
-        
+        @php
+        $menudroits = [\App\Enums\RoleEnum::SUPER_ADMIN->value, \App\Enums\RoleEnum::ADMINDROITS->value, \App\Enums\RoleEnum::ADMINMETIER->value];
+        $menurolespermissions = [\App\Enums\RoleEnum::SUPER_ADMIN->value, \App\Enums\RoleEnum::ADMINDROITS->value];
+        @endphp
         <!-- Copier cette div autant de fois que besoin de menu -->
         <div class="dropdown inline-block">           
-            <x-navbar.menu>Menu déroulant </x-navbar.menu>        
+            <x-navbar.menu>Clients </x-navbar.menu>        
             <ul class="dropdown-menu hidden absolute text-gray-500 pt-1">
-            <x-navbar.sousmenu href="">Premier sous menu</x-navbar.sousmenu>
-            <x-navbar.sousmenu href="">Deuxième sous menu</x-navbar.sousmenu>
-            <x-navbar.sousmenu href="">Troisième sous menu</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="{{route('dashboard.clients')}}">Liste des Clients</x-navbar.sousmenu>
+            <x-navbar.sousmenu href="{{route('add.client')}}">Créer un Client</x-navbar.sousmenu>
+            @hasanyrole($menudroits)
+                <x-navbar.sousmenu href="{{route('param.proxy')}}">
+                Paramètres du Proxy
+                </x-navbar.sousmenu>
+            @endhasanyrole
             </ul>
         </div>
         <!-- Fin de la section à copier -->
