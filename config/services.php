@@ -14,7 +14,7 @@ return [
     |
     */
     'passport' => [
-        'url'=>'url du proxy',
+        'url'=>env('URL_SERVER'),
         'client_id' => env('APP_CLIENT_ID'),
         'client_secret' => env('APP_CLIENT_SECRET'),
         'redirect' => env('APP_CLIENT_REDIRECT_URL'),

@@ -21,9 +21,7 @@ class SocialiteAuthController extends Controller
 {
     public function redirect(Request $request) {
         $redirectUri = $request->query('redirect_uri', url('/'));
-        // Stocker l'URI de redirection en session
         session(['redirect_uri' => $redirectUri]);
-        // dd(session('redirect_uri'));
         /** @var \Laravel\Socialite\Two\GoogleProvider  */
         $driver = Socialite::driver('passport');
 
@@ -32,7 +30,6 @@ class SocialiteAuthController extends Controller
 
     public function authenticate(Request $request)
     {
-        // dd(session(), $request);
         $userSocialite = Socialite::driver('passport')->user();
         $user = User::firstOrCreate([
             'email' => $userSocialite->getEmail(),
@@ -42,13 +39,11 @@ class SocialiteAuthController extends Controller
             'login' => $userSocialite->getName(),
         ]);
         AccessToken::where('user_id', '=', $user->id)->delete();
-        // Générer un token Passport pour App 2
         $token = $user->createToken('App2Token')->accessToken;
         $user->remember_token = $token;
         $user->save();
-        // Récupérer redirect_uri depuis la session
         $redirectUri = session('redirect_uri', url('/'));
-        session()->forget('redirect_uri'); // Nettoyer la session après redirection
+        session()->forget('redirect_uri'); 
     
         return redirect("{$redirectUri}?token={$token}");
     }
@@ -56,8 +51,6 @@ class SocialiteAuthController extends Controller
 
     public function changeParams(Request $request)
     {
-        // dd($request);
-        
         $path = base_path('.env');
 
         if (!file_exists($path)) {
@@ -98,7 +91,6 @@ class SocialiteAuthController extends Controller
     public function destroyClient($id) {
         $client = Client::find($id);
         $client->delete();
-        // dd($client);
         return to_route('dashboard.clients');
     }
 }
